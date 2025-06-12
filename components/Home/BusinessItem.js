@@ -1,0 +1,82 @@
+import React from 'react'
+import { useContext,useState,useEffect } from "react"
+import { UserLocationContext } from '../../context/UserlocationContext'
+
+const BusinessItem = ({business, image, showDir=false}) => {
+  const {userLocation, setUserLocation} = useContext(UserLocationContext);
+  const [distance,setDistance]=useState();
+
+
+    useEffect(()=>{
+      calculateDistance(
+        business.lat,
+        business.lon,
+        userLocation.lat,
+        userLocation.lng
+      )
+    },[])
+
+
+      const calculateDistance = (lat1, lon1, lat2, lon2) => {
+     
+      const earthRadius = 6371; // in kilometers
+  
+      const degToRad = (deg) => {
+        return deg * (Math.PI / 180);
+      };
+  
+      const dLat = degToRad(lat2 - lat1);
+      const dLon = degToRad(lon2 - lon1);
+  
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+      const distance = earthRadius * c;
+      const formatted = `${distance.toFixed(2)}`;
+     
+      setDistance(formatted)
+      return formatted; // Return the distance with 2 decimal places
+    };
+
+      const onDirectionClick=()=>{
+      window.open('https://www.google.com/maps/dir/?api=1&origin='+
+      userLocation.lat+','+userLocation.lng+'&destination='
+      +business.lat
+      +','+business.lon+'&travelmode=driving')
+  }
+
+
+
+  return (
+    <div className='w-[180px] flex-shrink-0 p-2
+      rounded-lg shadow-md mb-1
+      bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>
+        {image && <img src={image} alt='Restaurant' className='h-[100px] w-full object-cover rounded-md' />}
+        <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>
+        {/* <div className='flex gap-1 items-center'>{business.tags.addr.block}</div> */}
+        
+          <h2 className='text-[10px] text-gray-400 
+                line-clamp-2'>{business.tags.website || 'No website'}</h2>
+          <h2 className='text-[10px] text-gray-400 
+                line-clamp-2'>{business.tags.phone ||'No phone'}</h2>
+          <h2 className='text-[10px] text-gray-400 
+                line-clamp-2'>{business.cuisine}</h2>
+          <div className='flex justify-between'>
+            <h2 className='text-[#0075ff] text-2px font-light
+               flex justify-between items-center'>Dist:{distance}</h2>
+          {showDir? <div className=' p-1 mt-1'>
+            <h2 className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
+             border-blue-500
+               hover:text-white
+               hover:bg-blue-500' onClick={()=>onDirectionClick()} >Get Direction</h2>
+          </div>: null}
+          </div>
+                 
+    </div>
+  )
+}
+
+export default BusinessItem
