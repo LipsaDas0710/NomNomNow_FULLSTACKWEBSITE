@@ -23,14 +23,25 @@ export async function GET(request) {
     ? `["amenity"="restaurant"]["cuisine"="${category}"]`
     : `["amenity"="restaurant"]`;
 
+  // const query = `
+  // [out:json][timeout:25];
+  // (
+  //   node["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
+  //   way["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
+  //   relation["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
+  // );
+  // out center;`;
+
   const query = `
-  [out:json][timeout:25];
-  (
-    node["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
-    way["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
-    relation["amenity"="restaurant"]["cuisine"="${category}"](${bottom},${left},${top},${right});
-  );
-  out center;`;
+[out:json][timeout:25];
+(
+  node["amenity"="restaurant"]["cuisine"~"${category}"](${bottom},${left},${top},${right});
+  way["amenity"="restaurant"]["cuisine"~"${category}"](${bottom},${left},${top},${right});
+  relation["amenity"="restaurant"]["cuisine"~"${category}"](${bottom},${left},${top},${right});
+);
+out center;
+`;
+
 
 
   const url = "https://overpass-api.de/api/interpreter";

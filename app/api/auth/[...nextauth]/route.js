@@ -24,6 +24,7 @@ const handler = NextAuth({
    pages: {
     signIn: '/auth/signin', // 👈 this tells NextAuth to use your custom sign-in page
   },
+  
   //  Google Sign-In
   providers: [  
     GoogleProvider({

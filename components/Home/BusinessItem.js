@@ -54,7 +54,12 @@ const BusinessItem = ({business, image, showDir=false}) => {
     <div className='w-[180px] flex-shrink-0 p-2
       rounded-lg shadow-md mb-1
       bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>
-        {image && <img src={image} alt='Restaurant' className='h-[100px] w-full object-cover rounded-md' />}
+        {image && <img src={image} alt='Restaurant' className='h-[100px] w-full object-cover rounded-md'
+         onError={(e) => {
+    e.target.onerror = null;
+    const fallbackIndex = (business.id % 7) + 1;
+    e.target.src = `/restaurant/${fallbackIndex}.png`;
+  }} />}
         <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>
         {/* <div className='flex gap-1 items-center'>{business.tags.addr.block}</div> */}
         

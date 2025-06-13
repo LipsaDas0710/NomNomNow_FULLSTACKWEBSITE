@@ -1,22 +1,87 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext,useRef } from "react";
+import { UserLocationContext } from '@/context/UserlocationContext';
+import GlobalApi from '@/Shared/GlobalApi';
+import RangeSelect from '@/components/Home/RangeSelect';
+import debounce from 'lodash/debounce';
+import { RadiusContext } from "../context/RadiusContext";
+import BusinessList from '@/components/Home/BusinessList';
+import { useBusiness } from '@/context/SearchBusinessContext';
 
 function HeaderNavBar() {
+  const {userLocation, setUserLocation} = useContext(UserLocationContext);
+  const {radius, setRadius} = useContext(RadiusContext);
+  const { setBusinessList } = useBusiness();
+  // const [businessList,setBusinessList]=useState([]);
   const { data: session } = useSession();
   const [profileClick,setProfileClick]=useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  // const [radius,setRadius]=useState(5);
+  const isMounted = useRef(true); // ✅ Track if component is mounted
 
   useEffect(()=>{
     setTimeout(()=>{
       setProfileClick(false)
     },6000)
   },[profileClick==true])
+
+
+  // useEffect(() => {
+  //   return () => {
+  //     isMounted.current = false; // Clean up on unmount
+  //   };
+  // }, []);
+
+const handleCuisineSearch = debounce(async (searchTerm) => {
+  try {
+    const res = await GlobalApi.getPlace(
+      searchTerm,
+      radius,
+      userLocation.lat,
+      userLocation.lng
+    );
+    console.log("Calling API with:")
+    console.log("Fetched restaurants:", res.data.places);
+    setBusinessList(res.data.places);
+    // Optionally update state here, e.g.:
+    // setRestaurants(res.data);
+
+  } catch (error) {
+    console.error("Search error:", error);
+  }
+}, 800);
+  
+
+
+
+       const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchTerm.trim()) {
+      handleCuisineSearch(searchTerm.trim()); // Call parent function with search term
+      setSearchTerm(''); // Clear search after searching
+      console.log(setSearchTerm);
+    }
+  };
+
+    const handleSearchClick = () => {
+    if (searchTerm.trim()) {
+     handleCuisineSearch(searchTerm.trim());
+      setSearchTerm(''); // Clear search after searching
+      console.log(searchTerm);
+    }
+  
+
+
+}
+  
+
   return session?.user&&(
    <div
       className="flex items-center
     justify-between p-2 shadow-md"
     >
+
       <div className="flex gap-7 items-center">
         <Image src="/logo.png" alt="logo" width={50} height={50} />
         <h2 className="cursor-pointer hover:text-blue-500">Home</h2>
@@ -33,6 +98,8 @@ function HeaderNavBar() {
           strokeWidth={1.5}
           stroke="currentColor"
           className="w-6 h-6 text-black"
+          onClick={handleSearchClick} // Add click handler
+         onRadiusChange={(value) => setRadius(Number(value))}
         >
           <path
             strokeLinecap="round"
@@ -42,9 +109,13 @@ function HeaderNavBar() {
         </svg>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Whats your favorite cuisine?"
           className="bg-transparent 
         outline-none w-full text-black"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={handleSearch}
+         
         />
       </div>
       <div>

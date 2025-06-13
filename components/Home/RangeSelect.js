@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import { RadiusContext } from '@/context/RadiusContext';
+import React, { useState,useContext } from 'react'
+
+
 
 function RangeSelect({onRadiusChange}) {
-    const [radius,setRadius]=useState(5);
+    const {radius, setRadius} = useContext(RadiusContext);
     
   return (
     <div className='mt-5 px-2'>
