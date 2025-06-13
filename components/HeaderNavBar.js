@@ -9,6 +9,8 @@ import debounce from 'lodash/debounce';
 import { RadiusContext } from "../context/RadiusContext";
 import BusinessList from '@/components/Home/BusinessList';
 import { useBusiness } from '@/context/SearchBusinessContext';
+import VoiceSearchButton from "./VoiceSearchButton";
+
 
 function HeaderNavBar() {
   const {userLocation, setUserLocation} = useContext(UserLocationContext);
@@ -34,6 +36,8 @@ function HeaderNavBar() {
   //   };
   // }, []);
 
+
+//Function that does the API call from SearchBar and sends the data to businessList
 const handleCuisineSearch = debounce(async (searchTerm) => {
   try {
     const res = await GlobalApi.getPlace(
@@ -55,7 +59,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
   
 
 
-
+//starts teh search when "Enter" is clicked on the keyboard
        const handleSearch = (e) => {
     if (e.key === 'Enter' && searchTerm.trim()) {
       handleCuisineSearch(searchTerm.trim()); // Call parent function with search term
@@ -64,6 +68,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
     }
   };
 
+//Starts the search without pressing enter and clicking on the screen 
     const handleSearchClick = () => {
     if (searchTerm.trim()) {
      handleCuisineSearch(searchTerm.trim());
@@ -71,9 +76,13 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
       console.log(searchTerm);
     }
   
+  };
+//Handles the search for Voice String form the voiceSearchButton.js!!
+  const handleVoiceResult = (transcript) => {
+    setSearchTerm(transcript);
+    handleCuisineSearch(transcript);
+  };
 
-
-}
   
 
   return session?.user&&(
@@ -117,6 +126,8 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
           onKeyPress={handleSearch}
          
         />
+        {/* 🎤 Voice button will send result to handleSearch */}
+          <VoiceSearchButton onResult={handleVoiceResult} />
       </div>
       <div>
         {session?.user ? (
