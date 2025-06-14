@@ -92,13 +92,18 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
     >
 
       <div className="flex gap-7 items-center">
-        <Image src="/logo.png" alt="logo" width={50} height={50} />
-        <h2 className="cursor-pointer hover:text-blue-500">Home</h2>
-        <h2 className="cursor-pointer hover:text-blue-500">Favourite</h2>
-      </div>
-      <div
-        className=" bg-gray-100 p-[6px] rounded-md
-      w-[40%] gap-3 hidden md:flex"
+        <div className="flex">
+          <Image src="/logo.png" alt="logo" width={50} height={50} />
+          <h2 className="cursor-pointer hover:text-blue-500 mt-2.5">NomNomNow</h2>
+        </div>
+        <div className="flex ml-10">
+          <h2 className="cursor-pointer hover:text-blue-500 m-3">Home</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3">Profile</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3">Favourite</h2>
+        </div>
+        <div
+        className=" bg-gray-100 p-[6px] rounded-md ml-10
+      w-[40%] gap-3  md:flex lg:flex "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -129,6 +134,8 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
         {/* 🎤 Voice button will send result to handleSearch */}
           <VoiceSearchButton onResult={handleVoiceResult} />
       </div>
+      </div>
+      
       <div>
         {session?.user ? (
           <>

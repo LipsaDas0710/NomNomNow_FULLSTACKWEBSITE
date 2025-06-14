@@ -5,7 +5,8 @@ import { UserLocationContext } from '../../context/UserlocationContext';
 
 // Helper to pick one of 7 images based on index
 const getCuisineImage = (cuisine, index) => {
-  const safeCuisine = cuisine?.toLowerCase() || 'restaurant';
+  const safeCuisine = cuisine?.split(';')[0]?.toLowerCase() || 'restaurant';
+  console.log(safeCuisine)
   const imgIndex = (index % 7) + 1;
   return `/${safeCuisine}/${imgIndex}.png`;
 };
