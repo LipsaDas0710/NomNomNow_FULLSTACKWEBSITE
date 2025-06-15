@@ -40,7 +40,7 @@ const Markers = ({ businessList }) => {
 
   // Handle marker click and calculate popup position
   const handleMarkerClick = (business) => {
-    const point = map.latLngToContainerPoint([business.lat, business.lon]);
+    const point = map.latLngToContainerPoint([business.lat, business.lng]);
     
     setPopupPosition({
       x: point.x,
@@ -64,7 +64,7 @@ const Markers = ({ businessList }) => {
       
       if (businessInList) {
         // Calculate popup position for the selected business
-        const point = map.latLngToContainerPoint([businessInList.lat, businessInList.lon]);
+        const point = map.latLngToContainerPoint([businessInList.lat, businessInList.lng]);
         
         setPopupPosition({
           x: point.x,
@@ -81,7 +81,7 @@ const Markers = ({ businessList }) => {
   useEffect(() => {
     if (activePopup && map) {
       const updatePopupPosition = () => {
-        const point = map.latLngToContainerPoint([activePopup.lat, activePopup.lon]);
+        const point = map.latLngToContainerPoint([activePopup.lat, activePopup.lng]);
         setPopupPosition({
           x: point.x,
           y: point.y
@@ -99,14 +99,14 @@ const Markers = ({ businessList }) => {
   }, [activePopup, map]);
 
   //finding the nearest business to the user location
-  function calculateDistance(lat1, lon1, lat2, lon2) {
+  function calculateDistance(lat1, lng1, lat2, lng2) {
   const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const dlng = (lng2 - lng1) * Math.PI / 180;
   const a = 
     Math.sin(dLat/2) * Math.sin(dLat/2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
+    Math.sin(dlng/2) * Math.sin(dlng/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   return R * c;
 }
@@ -118,15 +118,15 @@ const Markers = ({ businessList }) => {
       {/* Markers */}
       {businessList.sort((a, b) => {
             // Calculate distance for restaurant a
-            const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lon);
+            const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng);
             // Calculate distance for restaurant b
-            const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lon);
+            const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
             // Sort by distance (ascending - nearest first)
             return distanceA - distanceB;
       }).slice(0, 7).map((business) => (
         <Marker
-          key={business.id || business.lat + '-' + business.lon}
-          position={[business.lat, business.lon]}
+          key={business.id || business.lat + '-' + business.lng}
+          position={[business.lat, business.lng]}
           icon={userIcon}
           eventHandlers={{
             click: () => setSelectedBusiness(business),

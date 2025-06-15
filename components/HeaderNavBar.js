@@ -64,7 +64,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
     if (e.key === 'Enter' && searchTerm.trim()) {
       handleCuisineSearch(searchTerm.trim()); // Call parent function with search term
       setSearchTerm(''); // Clear search after searching
-      console.log(setSearchTerm);
+      // console.log(setSearchTerm);
     }
   };
 
@@ -73,7 +73,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
     if (searchTerm.trim()) {
      handleCuisineSearch(searchTerm.trim());
       setSearchTerm(''); // Clear search after searching
-      console.log(searchTerm);
+      // console.log(searchTerm);
     }
   
   };
@@ -92,18 +92,20 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
     >
 
       <div className="flex gap-7 items-center">
-        <div className="flex">
+        <div className=" md:flex">
           <Image src="/logo.png" alt="logo" width={50} height={50} />
-          <h2 className="cursor-pointer hover:text-blue-500 mt-2.5">NomNomNow</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 mt-2.5 text-sm md:text-lg ml-1">NomNomNow</h2>
         </div>
-        <div className="flex ml-10">
+        <div className=" md:ml-70 ">
+          {/* md configure for navBar and search */}
+          <div className="flex space-x-6 mb-4 ">
           <h2 className="cursor-pointer hover:text-blue-500 m-3">Home</h2>
           <h2 className="cursor-pointer hover:text-blue-500 m-3">Profile</h2>
           <h2 className="cursor-pointer hover:text-blue-500 m-3">Favourite</h2>
         </div>
-        <div
-        className=" bg-gray-100 p-[6px] rounded-md ml-10
-      w-[40%] gap-3  md:flex lg:flex "
+      </div>
+      <div
+        className="flex items-center bg-gray-100 p-2 rounded-md w-[90%] gap-3 md:mr-3"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +137,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
           <VoiceSearchButton onResult={handleVoiceResult} />
       </div>
       </div>
-      
+        
       <div>
         {session?.user ? (
           <>
@@ -145,7 +147,7 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
               width={40}
               height={40}
               onClick={()=>setProfileClick(!profileClick)}
-              className="rounded-full cursor-pointer 
+              className="rounded-full cursor-pointer  m-3
               hover:border-[2px] border-blue-500"
             />
            {profileClick? <div className="absolute bg-white p-3

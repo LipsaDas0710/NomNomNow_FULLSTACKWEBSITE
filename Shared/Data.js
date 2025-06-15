@@ -1,7 +1,7 @@
 const CategoryListData=[
     {
         id:1,
-        name:'indian',
+        name:'indian'|| 'Indian',
         value:'Indian restaurant',
         icon:'/masala-dosa.png'
     },
