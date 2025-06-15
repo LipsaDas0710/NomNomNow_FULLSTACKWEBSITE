@@ -45,29 +45,24 @@ const BusinessItem = ({business, image, showDir=false}) => {
       window.open('https://www.google.com/maps/dir/?api=1&origin='+
       userLocation.lat+','+userLocation.lng+'&destination='
       +business.lat
-      +','+business.lng+'&travelmode=driving')
-  }
+      +','+business.lng+'&travelmode=driving');
 
+  }
+        
+// fallback image using random()
+       const randomIndex = Math.floor(parseInt(business.id?.slice(-2), 36) % 7) + 1;
+       const fallbackImage = `/restaurant/${randomIndex}.png`;
 
 
   return (
     <div className='w-[180px] flex-shrink-0 p-2
       rounded-lg shadow-md mb-1
-      bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>
-        {/* {image && <img src={image} alt='Restaurant' className='h-[100px] w-full object-cover rounded-md'
-         onError={(e) => {
-    e.target.onerror = null;
-    const fallbackIndex = (business.image % 7) + 1;
-    e.target.src = `/restaurant/${fallbackIndex}.png`;
-  }} />} */}
-
-        <img src={business.image || `/restaurant/${(parseInt(business.id?.[0] || '1', 36) % 7) + 1}.png`}
+      bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>   
+        <img src={business.image || fallbackImage}
         alt='restaurant' className='h-[100px] w-full object-cover rounded-md' 
         onError={(e) => {
             e.target.onerror = null;
-            const firstChar = business.id?.[0] || '1';
-            let fallbackIndex = parseInt(firstChar, 36) % 7 + 1;
-            e.target.src = `/restaurant/${fallbackIndex}.png`;
+            e.target.src = fallbackImage;
           }}/>
         <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>
         {/* <div className='flex gap-1 items-center'>{business.tags.addr.block}</div> */}

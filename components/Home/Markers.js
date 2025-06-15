@@ -150,7 +150,7 @@ const Markers = ({ businessList }) => {
               left: `${popupPosition.x - -210}px`, // Center the 300px wide popup
               top: `${popupPosition.y - 230}px`,  // Position above marker (400px height + 15px gap)
               width: '200px',
-              height: '270px',
+              height: '280px',
               overflow: 'hidden',
               padding: '10px',  
               center: 'center',

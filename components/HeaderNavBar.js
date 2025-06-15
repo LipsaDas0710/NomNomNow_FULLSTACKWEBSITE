@@ -40,30 +40,29 @@ function HeaderNavBar() {
 //Function that does the API call from SearchBar and sends the data to businessList
 const handleCuisineSearch = debounce(async (searchTerm) => {
   try {
-    const res = await GlobalApi.getPlace(
+    const radiusInM= radius * 1000;
+    const res = await GlobalApi.getFoursquarePlaces(
       searchTerm,
-      radius,
+      radiusInM,
       userLocation.lat,
       userLocation.lng
     );
     console.log("Calling API with:")
-    console.log("Fetched restaurants:", res.data.places);
-    setBusinessList(res.data.places);
+    console.log("Fetched restaurants:", res.data);
+    setBusinessList(res.data);
     // Optionally update state here, e.g.:
     // setRestaurants(res.data);
 
   } catch (error) {
     console.error("Search error:", error);
   }
-}, 800);
-  
-
+}, 1000);
 
 //starts teh search when "Enter" is clicked on the keyboard
        const handleSearch = (e) => {
     if (e.key === 'Enter' && searchTerm.trim()) {
-      handleCuisineSearch(searchTerm.trim()); // Call parent function with search term
-      setSearchTerm(''); // Clear search after searching
+      handleCuisineSearch(searchTerm.trim().toLowerCase()); // Call parent function with search term
+      // setSearchTerm(''); // Clear search after searching
       // console.log(setSearchTerm);
     }
   };
@@ -71,8 +70,8 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
 //Starts the search without pressing enter and clicking on the screen 
     const handleSearchClick = () => {
     if (searchTerm.trim()) {
-     handleCuisineSearch(searchTerm.trim());
-      setSearchTerm(''); // Clear search after searching
+     handleCuisineSearch(searchTerm.trim().toLowerCase());
+      // setSearchTerm(''); // Clear search after searching
       // console.log(searchTerm);
     }
   

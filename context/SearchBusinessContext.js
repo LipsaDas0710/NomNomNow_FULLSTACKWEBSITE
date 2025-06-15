@@ -1,16 +1,15 @@
-'use client'
 import { createContext, useContext, useState } from 'react';
 
-const BusinessContext = createContext();
-
-export const useBusiness = () => useContext(BusinessContext);
+const SearchBusinessContext = createContext();
 
 export const BusinessProvider = ({ children }) => {
   const [businessList, setBusinessList] = useState([]);
 
   return (
-    <BusinessContext.Provider value={{ businessList, setBusinessList }}>
+    <SearchBusinessContext.Provider value={{ businessList, setBusinessList }}>
       {children}
-    </BusinessContext.Provider>
+    </SearchBusinessContext.Provider>
   );
 };
+
+export const useBusiness = () => useContext(SearchBusinessContext);

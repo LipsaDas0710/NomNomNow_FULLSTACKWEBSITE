@@ -6,7 +6,7 @@ import { UserLocationContext } from '../../context/UserlocationContext';
 // Helper to pick one of 7 images based on index
 const getCuisineImage = (cuisine, index) => {
   const safeCuisine = cuisine?.split(';')[0]?.toLowerCase() || 'restaurant';
-  console.log(safeCuisine);
+  // console.log(safeCuisine);
   const imgIndex = (index % 7) + 1;
   return `/${safeCuisine}/${imgIndex}.png`;
 };
@@ -16,14 +16,14 @@ function BusinessList({ businessList }) {
   const { selectedBusiness, setSelectedBusiness } = useContext(SelectedBusinessContext);
 
     //finding the nearest business to the user location
-  function calculateDistance(lat1, lon1, lat2, lon2) {
+  function calculateDistance(lat1, lng1, lat2, lng2) {
   const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const dlng = (lng2 - lng1) * Math.PI / 180;
   const a = 
     Math.sin(dLat/2) * Math.sin(dLat/2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
+    Math.sin(dlng/2) * Math.sin(dlng/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   return R * c;
 }
@@ -39,9 +39,9 @@ function BusinessList({ businessList }) {
     >
       {businessList.sort((a, b) => {
                   // Calculate distance for restaurant a
-                  const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lon);
+                  const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng);
                   // Calculate distance for restaurant b
-                  const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lon);
+                  const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
                   // Sort by distance (ascending - nearest first)
                   return distanceA - distanceB;
             }).slice(0, 7).map((item, index) => {

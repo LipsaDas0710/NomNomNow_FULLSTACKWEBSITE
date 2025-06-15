@@ -165,11 +165,10 @@ export async function GET(req) {
             const photoData = await photoRes.json();
             if (photoData.length > 0) {
               photoUrl = `${photoData[0].prefix}original${photoData[0].suffix}`;
-              console.log(photoUrl);
             }
           } else {
-            const errorText = await photoRes.text();
-            console.error(`Photo API Error (${place.name}):`, errorText);
+            const errorText = await photoRes.json().catch(() => ({}));
+            console.error(`Photo API Error (${place.name}):`, errorText|| 'Unknown error');
           }
         } catch (e) {
           console.error(`Failed to fetch photo for ${place.name}`, e);
