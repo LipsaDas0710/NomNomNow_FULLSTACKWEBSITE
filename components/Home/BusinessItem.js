@@ -57,9 +57,18 @@ const BusinessItem = ({business, image, showDir=false}) => {
         {/* {image && <img src={image} alt='Restaurant' className='h-[100px] w-full object-cover rounded-md'
          onError={(e) => {
     e.target.onerror = null;
-    const fallbackIndex = (business.id % 7) + 1;
+    const fallbackIndex = (business.image % 7) + 1;
     e.target.src = `/restaurant/${fallbackIndex}.png`;
   }} />} */}
+
+        <img src={business.image || `/restaurant/${(parseInt(business.id?.[0] || '1', 36) % 7) + 1}.png`}
+        alt='restaurant' className='h-[100px] w-full object-cover rounded-md' 
+        onError={(e) => {
+            e.target.onerror = null;
+            const firstChar = business.id?.[0] || '1';
+            let fallbackIndex = parseInt(firstChar, 36) % 7 + 1;
+            e.target.src = `/restaurant/${fallbackIndex}.png`;
+          }}/>
         <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>
         {/* <div className='flex gap-1 items-center'>{business.tags.addr.block}</div> */}
         

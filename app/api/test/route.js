@@ -1,17 +1,4 @@
-// // app/api/test/route.js
-// import { connectDB } from '../../lib/mongodb';
-// import { NextResponse } from 'next/server';
 
-
-// export async function GET() {
-//   try {
-//     await connectDB();
-//     return NextResponse.json({ message: '✅ MongoDB connected successfully!' });
-//   } catch (err) {
-//     console.error('❌ MongoDB error:', err);
-//     return NextResponse.json({ error: 'MongoDB connection failed' }, { status: 500 });
-//   }
-// }
 
 
 import { connectDB } from '../../lib/mongodb';
