@@ -9,9 +9,10 @@ import { UserLocationContext } from '../context/UserlocationContext'
 import { SelectedBusinessContext } from '@/context/SelectedBusinessContext';
 import { RadiusContext } from '@/context/RadiusContext';
 import { BusinessProvider } from '@/context/SearchBusinessContext';
+import { Inter } from 'next/font/google';
 
+const inter = Inter({ subsets: ['latin'] });
 
-const raleway = Raleway({ subsets: ['latin'] })
 
 const metadata = {
   title: 'Lipsa Das',
@@ -19,7 +20,7 @@ const metadata = {
 }
 
 export default function RootLayout({ children }) {
- 
+
   const [userLocation,setUserLocation]=useState([]);
   const [selectedBusiness,setSelectedBusiness]=useState([]);
   const [radius, setRadius] = useState(5); // default radius]);
@@ -45,7 +46,7 @@ useEffect(() => {
  
   return (
     <html lang="en">
-      <body className={raleway.className} >
+      <body className={inter.className} >
         <Provider>
           <BusinessProvider>
           <SelectedBusinessContext.Provider value={{selectedBusiness,setSelectedBusiness}}>
