@@ -55,7 +55,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
 
 
   return (
-    <div className='w-[180px] flex-shrink-0 p-2
+    <div className='w-[180px] flex-shrink-0 p-2 
       rounded-lg shadow-md mb-1
       bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>   
         <img src={business.image || fallbackImage}
@@ -64,24 +64,27 @@ const BusinessItem = ({business, image, showDir=false}) => {
             e.target.onerror = null;
             e.target.src = fallbackImage;
           }}/>
-        <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>
-        {/* <div className='flex gap-1 items-center'>{business.tags.addr.block}</div> */}
-        
+        <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>        
           <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>{business.address || 'No website'}</h2>
+                line-clamp-2'>Category:{business.category ||'No phone'}</h2>
           <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>{business.category ||'No phone'}</h2>
+                line-clamp-2'>Address:{business.address || 'No website'}</h2>
           <h2 className='text-[10px] text-gray-400 
                 line-clamp-2'>{business.id}</h2>
           <div className='flex justify-between'>
             <h2 className='text-[#0075ff] text-2px font-light 
                flex justify-between items-center'>Dist:{distance}</h2>
+         
           {showDir? <div className=' p-1 mt-1'>
             <h2 className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
              border-blue-500
                hover:text-white
                hover:bg-blue-500' onClick={()=>onDirectionClick()} >Get Direction</h2>
           </div>: null}
+             <bottom className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
+             border-blue-500
+               hover:text-white
+               hover:bg-blue-500'>star</bottom>
           </div>
                  
     </div>
