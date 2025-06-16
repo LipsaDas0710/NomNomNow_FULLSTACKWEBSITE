@@ -6,7 +6,7 @@ import { hashPassword } from "../../lib/auth";
 
 export async function POST(req) {
   try {
-    const { username, email, password } = await req.json();
+    const { name, username, email, password } = await req.json();
 
     if (!username || !email || !password) {
       return new Response(JSON.stringify({ error: "All fields are required" }), {
@@ -22,11 +22,12 @@ export async function POST(req) {
         status: 409,
       });
     }
-
+    const urlName = username.toLowerCase().replace(/\s+/g, '');
     const hashedPassword = await hashPassword(password);
 
     const newUser = await User.create({
       username,
+      urlName,
       email,
       password: hashedPassword,
     });

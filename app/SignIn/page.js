@@ -25,6 +25,7 @@ export default function Register() {
     username: '',
     email: '',
     password: '',
+    urlname:'',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');

@@ -56,7 +56,7 @@ export default function AddReviewForm() {
         <div>
           <label className="block mb-1 text-sm font-medium">Your Review</label>
           <textarea
-            className="w-full p-2 rounded dark:bg-gray-800 bg-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 rounded dark:bg-gray-800 bg-white border dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="4"
             placeholder="Write something about the restaurant..."
             value={reviewText}

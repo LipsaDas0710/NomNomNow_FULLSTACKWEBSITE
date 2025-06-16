@@ -1,7 +1,7 @@
 'use client'
 import dynamic from 'next/dynamic';
 import CategoryList from '@/components/Home/CategoryList';
-import OpenStreetMapView from '../../components/Home/OpenStreetMapView';
+import OpenStreetMapView from './Home/OpenStreetMapView';
 import RangeSelect from '@/components/Home/RangeSelect';
 import SelectRating from '@/components/Home/SelectRating';
 import { signOut, useSession } from 'next-auth/react'
@@ -15,10 +15,9 @@ import HeaderNavBar from '@/components/HeaderNavBar';
 import { useBusiness } from '@/context/SearchBusinessContext';
 
 
-export default function Home() {
-
-
-  const [mounted, setMounted] = useState(false);
+export default  function Home() {
+   
+   const [mounted, setMounted] = useState(false);
    const [loading, setLoading] = useState(false);
    const {data:session}=useSession();
    const [category,setCategory]=useState();
@@ -43,6 +42,14 @@ export default function Home() {
 //   },[session, mounted])
 
 //gets me the cat. radius and mounted conformation ?
+
+// Optional: Redirect if session user !== URL username
+//   useEffect(() => {
+//     if (mounted && session && session.user?.username !== username) {
+//       router.push('/');
+//     }
+//   }, [mounted, session]);
+
 useEffect(() => {
     if (mounted && userLocation?.lat && userLocation?.lng) {
       getPlace();
@@ -50,6 +57,9 @@ useEffect(() => {
     }
 }, [category, radius, userLocation ,mounted]);
 
+// useEffect(() => {
+//   console.log('Username param:', username);
+// }, [username]);
 
 // frontend api route for FourSquare for richer data
 
