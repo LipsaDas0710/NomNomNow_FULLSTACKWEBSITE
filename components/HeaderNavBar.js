@@ -10,7 +10,7 @@ import { RadiusContext } from "../context/RadiusContext";
 import BusinessList from '@/components/Home/BusinessList';
 import { useBusiness } from '@/context/SearchBusinessContext';
 import VoiceSearchButton from "./VoiceSearchButton";
-
+import { useRouter } from "next/navigation";
 
 function HeaderNavBar() {
   const {userLocation, setUserLocation} = useContext(UserLocationContext);
@@ -22,6 +22,7 @@ function HeaderNavBar() {
   const [searchTerm, setSearchTerm] = useState('');
   // const [radius,setRadius]=useState(5);
   const isMounted = useRef(true); // ✅ Track if component is mounted
+  const router = useRouter();
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -93,14 +94,14 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
       <div className="flex gap-7 items-center">
         <div className=" md:flex">
           <Image src="/logo.png" alt="logo" width={50} height={50} />
-          <h2 className="cursor-pointer hover:text-blue-500 mt-2.5 text-sm md:text-lg ml-1">NomNomNow</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 mt-2.5 text-sm md:text-lg ml-1" onClick={()=>router.push('/')}>NomNomNow</h2>
         </div>
         <div className=" md:ml-70 ">
           {/* md configure for navBar and search */}
           <div className="flex space-x-6 mb-4 ">
-          <h2 className="cursor-pointer hover:text-blue-500 m-3">Home</h2>
-          <h2 className="cursor-pointer hover:text-blue-500 m-3">Profile</h2>
-          <h2 className="cursor-pointer hover:text-blue-500 m-3">Favourite</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/')}>Home</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile')}>Profile</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile')}>Favourite</h2>
         </div>
       </div>
       <div

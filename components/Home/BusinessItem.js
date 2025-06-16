@@ -3,6 +3,7 @@ import { useContext,useState,useEffect } from "react"
 import { UserLocationContext } from '../../context/UserlocationContext'
 import Heart from "react-heart"
 import { AlignJustify } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 
 const BusinessItem = ({business, image, showDir=false}) => {
@@ -10,6 +11,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const [distance,setDistance]=useState();
   const [active, setActive] = useState(false);
   const [isClick,setClick]=useState(false);
+  const router= useRouter();
 
 
     useEffect(()=>{
@@ -89,7 +91,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
                 {showDir?null:<h2 className='border-[1px] p-1 rounded-sm mr-1.5
              border-gray-300
                hover:text-white
-               hover:bg-gray-300'><AlignJustify color="gray" size={15} /></h2>}
+               hover:bg-gray-300' onClick={()=>router.push('/RestaurantInfo')}><AlignJustify color="gray" size={15} /></h2>}
             
          
           {showDir? <div className=' p-1 mt-1'>
@@ -98,10 +100,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
                hover:text-white
                hover:bg-blue-500' onClick={()=>onDirectionClick()} >Get Direction</h2>
           </div>: null}
-           
-          {/* <div className="App">
-<Heart isClick={isClick} onClick={() =>
-setClick(!isClick)} /></div>     */}
+
        
           </div>
                  
