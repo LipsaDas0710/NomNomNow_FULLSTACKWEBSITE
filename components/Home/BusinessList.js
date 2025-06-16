@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import BusinessItem from './BusinessItem';
 import { SelectedBusinessContext } from '/context/SelectedBusinessContext';
 import { UserLocationContext } from '../../context/UserlocationContext';
+import { useRouter } from 'next/navigation'; 
 
 // Helper to pick one of 7 images based on index
 const getCuisineImage = (cuisine, index) => {
@@ -14,6 +15,7 @@ const getCuisineImage = (cuisine, index) => {
 function BusinessList({ businessList }) {
   const {userLocation, setUserLocation} = useContext(UserLocationContext);
   const { selectedBusiness, setSelectedBusiness } = useContext(SelectedBusinessContext);
+  const router = useRouter();
 
     //finding the nearest business to the user location
   function calculateDistance(lat1, lng1, lat2, lng2) {

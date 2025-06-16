@@ -55,6 +55,19 @@ const BusinessItem = ({business, image, showDir=false}) => {
       +','+business.lng+'&travelmode=driving');
 
   }
+  const handleClick = () => {
+  const query = new URLSearchParams({
+    name: business.name,
+    address: business.address,
+    category:business.category,
+    id:business.id,
+    dis:distance,
+
+  }).toString();
+
+  router.push(`/AboutRestaurant/BookTable?${query}`);
+};
+
         
 // fallback image using random()
        const randomIndex = Math.floor(parseInt(business.id?.slice(-2), 36) % 7) + 1;
@@ -79,11 +92,11 @@ const BusinessItem = ({business, image, showDir=false}) => {
 		</div>
         </div>        
           <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>Category:{business.category ||'No phone'}</h2>
+                line-clamp-2'>Category:{business.category}</h2>
           <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>Address:{business.address || 'No website'}</h2>
-          {/* <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>{business.id}</h2> */}
+                line-clamp-2'>Address:{business.address }</h2>
+          <h2 className='text-[10px] text-gray-400 
+                line-clamp-2'>{business.id}</h2>
           <div className='flex justify-between'>
             <h2 className='text-[#0075ff] text-2px font-light 
                flex justify-between items-center'>Dist:{distance}</h2>
@@ -91,7 +104,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
                 {showDir?null:<h2 className='border-[1px] p-1 rounded-sm mr-1.5
              border-gray-300
                hover:text-white
-               hover:bg-gray-300' onClick={()=>router.push('/RestaurantInfo')}><AlignJustify color="gray" size={15} /></h2>}
+               hover:bg-gray-300' onClick={handleClick}><AlignJustify color="gray" size={15} /></h2>}
             
          
           {showDir? <div className=' p-1 mt-1'>
