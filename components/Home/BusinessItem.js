@@ -62,6 +62,8 @@ const BusinessItem = ({business, image, showDir=false}) => {
     category:business.category,
     id:business.id,
     dis:distance,
+    lat:business.lat,
+    lng:business.lng,
 
   }).toString();
 
