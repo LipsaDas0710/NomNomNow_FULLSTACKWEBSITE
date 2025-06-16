@@ -1,10 +1,15 @@
 import React from 'react'
 import { useContext,useState,useEffect } from "react"
 import { UserLocationContext } from '../../context/UserlocationContext'
+import Heart from "react-heart"
+import { AlignJustify } from 'lucide-react';
+
 
 const BusinessItem = ({business, image, showDir=false}) => {
   const {userLocation, setUserLocation} = useContext(UserLocationContext);
   const [distance,setDistance]=useState();
+  const [active, setActive] = useState(false);
+  const [isClick,setClick]=useState(false);
 
 
     useEffect(()=>{
@@ -64,16 +69,28 @@ const BusinessItem = ({business, image, showDir=false}) => {
             e.target.onerror = null;
             e.target.src = fallbackImage;
           }}/>
-        <h2 className='text-[13px] font-bold mt-1 line-clamp-1 text-black'>{business.name}</h2>        
+        
+        <div className='flex justify-between'>
+          <h2 className='text-[13px] font-bold mt-3 line-clamp-1 text-black'>{business.name}</h2>
+          <div style={{ width: "17px" }} className='mr-3'>
+			<Heart isActive={active} onClick={() => setActive(!active)} animationTrigger = "both" inactiveColor = "rgba(173, 48, 21)" activeColor = "#ad3015" style = {{marginTop:'15px'}} animationDuration = {0.1}/>
+		</div>
+        </div>        
           <h2 className='text-[10px] text-gray-400 
                 line-clamp-2'>Category:{business.category ||'No phone'}</h2>
           <h2 className='text-[10px] text-gray-400 
                 line-clamp-2'>Address:{business.address || 'No website'}</h2>
-          <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>{business.id}</h2>
+          {/* <h2 className='text-[10px] text-gray-400 
+                line-clamp-2'>{business.id}</h2> */}
           <div className='flex justify-between'>
             <h2 className='text-[#0075ff] text-2px font-light 
                flex justify-between items-center'>Dist:{distance}</h2>
+               
+                {showDir?null:<h2 className='border-[1px] p-1 rounded-sm mr-1.5
+             border-gray-300
+               hover:text-white
+               hover:bg-gray-300'><AlignJustify color="gray" size={15} /></h2>}
+            
          
           {showDir? <div className=' p-1 mt-1'>
             <h2 className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
@@ -81,10 +98,11 @@ const BusinessItem = ({business, image, showDir=false}) => {
                hover:text-white
                hover:bg-blue-500' onClick={()=>onDirectionClick()} >Get Direction</h2>
           </div>: null}
-             <bottom className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
-             border-blue-500
-               hover:text-white
-               hover:bg-blue-500'>star</bottom>
+           
+          {/* <div className="App">
+<Heart isClick={isClick} onClick={() =>
+setClick(!isClick)} /></div>     */}
+       
           </div>
                  
     </div>
