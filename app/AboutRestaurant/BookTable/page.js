@@ -101,7 +101,7 @@ export default function BookTable() {
   const lng = searchParams.get('lng');
 
   return (
-    <div className="p-4 max-w-4xl mx-auto text-gray-900 dark:text-gray-100 dark:bg-black bg-white min-h-screen">
+    <div className="p-4 max-w-4xl mx-auto text-gray-900 dark:text-gray-100  min-h-screen">
       <h2 className="text-xl font-bold mb-4">Select your booking details</h2>
 
       {/* Booking options */}

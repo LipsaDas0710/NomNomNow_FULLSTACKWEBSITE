@@ -7,6 +7,9 @@ export default function AddReviewForm() {
   const searchParams = useSearchParams();
   const name = searchParams.get('name');
   const address = searchParams.get('address');
+  const id = searchParams.get('id');
+  const lat = searchParams.get('lat');
+  const lng = searchParams.get('lng');
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState(null);
@@ -27,7 +30,7 @@ export default function AddReviewForm() {
   };
 
   return (
-    <div className="ml-10">
+    <div className="p-4 max-w-4xl mx-auto text-gray-900 dark:text-gray-100  min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Add Your Review</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         
@@ -53,7 +56,7 @@ export default function AddReviewForm() {
         <div>
           <label className="block mb-1 text-sm font-medium">Your Review</label>
           <textarea
-            className="w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 rounded dark:bg-gray-800 bg-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows="4"
             placeholder="Write something about the restaurant..."
             value={reviewText}
