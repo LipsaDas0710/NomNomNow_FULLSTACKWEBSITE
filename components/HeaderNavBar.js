@@ -99,9 +99,9 @@ const handleCuisineSearch = debounce(async (searchTerm) => {
         <div className=" md:ml-70 ">
           {/* md configure for navBar and search */}
           <div className="flex space-x-6 mb-4 ">
-          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/')}>Home</h2>
-          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile')}>Profile</h2>
-          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile')}>Favourite</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Home')}>Home</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile/Review')}>Profile</h2>
+          <h2 className="cursor-pointer hover:text-blue-500 m-3" onClick={()=>router.push('/Profile/Favourite')}>Favourite</h2>
         </div>
       </div>
       <div
