@@ -108,13 +108,22 @@
 // }
 
 
-
+'use client'
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
-const page = () => {
+export default function MainPage ()  {
+
+  const router = useRouter();
+
   return (
-    <div>page main</div>
+    <div>
+      uhugigrthgrht
+      <p>gjrhfrhfurj</p>
+      <h1 className='text-black dark:text-white' onClick={()=>router.push('/Home')}>App</h1>
+      <h1 className='text-black dark:text-white' onClick={()=>router.push('/SignIn')}>signin </h1>
+      <h1 className='text-black dark:text-white' onClick={()=>router.push('/Login')}>login </h1>
+    </div>
   )
 }
 
-export default page

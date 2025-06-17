@@ -5,20 +5,26 @@ import React, { useEffect,useState } from 'react'
 import {useRouter} from 'next/navigation'
 
 export default function Register() {
+    const [urlname, setUrlname] = useState(null);
     const {data:session}=useSession();
     const router = useRouter();
-      useEffect(()=>{
-          console.log("session:",session);
-          if(session?.user)
-          {
-              router.push("/");
-          }
-      },[session])
+      // useEffect(()=>{
+      //     console.log("session:",session);
+          
+      // },[session])
+
+
+      
+      useEffect(() => {
+  if (session?.user && urlname) {
+    router.push(`/${formData.urlname}/Home`);
+  }
+}, [session, urlname]);
 
 
     // Function to handle Google Sign-In (in register page)
     const handleGoogleSignIn = () => {
-        signIn("google", { callbackUrl: "/" }); // redirect after login
+        signIn("google", { callbackUrl: `/${formData.urlname}/Home` }); // redirect after login
     };
 
   const [formData, setFormData] = useState({
@@ -33,6 +39,25 @@ export default function Register() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSpace = (e) => {
+  const { name, value } = e.target;
+
+  if (name === 'urlname') {
+    const sanitized = value.toLowerCase().replace(/\s+/g, ''); // remove spaces, force lowercase
+    setFormData({ ...formData, [name]: sanitized });
+  } else {
+    setFormData({ ...formData, [name]: value });
+  }
+};
+// auto fill urlname
+useEffect(() => {
+  setFormData((prev) => ({
+    ...prev,
+    urlname: prev.username.toLowerCase().replace(/\s+/g, ''),
+  }));
+}, [formData.username]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,12 +76,17 @@ export default function Register() {
       if (!res.ok) throw new Error(data.message || 'Something went wrong');
 
       setSuccess('Registration successful!');
+  
+
+
       //router.push('/'); // redirect to login page
       await signIn("credentials", {
+
       email: formData.email,
+      username: formData.username,
       password: formData.password,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: `/${formData.urlname}/Home`,
     });
     } catch (err) {
       setError(err.message);
@@ -67,6 +97,16 @@ export default function Register() {
     <div className="max-w-md mx-auto mt-10 p-6 border rounded">
       <h2 className="text-2xl mb-4 font-bold">Register(Sign in page)</h2>
       <form onSubmit={handleSubmit}>
+        {/* <input
+          name="urlname"
+          type="text"
+          placeholder="URL name"
+          className="w-full p-2 mb-4 border"
+          value={formData.urlname}
+          onChange={handleSpace}
+          required
+        /> */}
+
         <input
           name="username"
           type="text"

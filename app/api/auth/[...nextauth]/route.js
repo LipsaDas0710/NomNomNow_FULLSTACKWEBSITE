@@ -58,6 +58,7 @@ const handler = NextAuth({
           id: user._id.toString(),
           email: user.email,
           name: user.username,
+          urlname: user.urlname,
         };
       },
     }),
@@ -75,21 +76,28 @@ const handler = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.urlname = user.urlname;
 
        // 🧠 Check and store Google users in DB
         await connectDB();
         const existingUser = await User.findOne({ email: user.email });
 
         if (!existingUser) {
+          const googleName = user.name || "Google User";
+          const googleUrlname = googleName.toLowerCase().replace(/\s+/g, '');
+
           const newUser = await User.create({
-            username: user.name || "Google User",
+            username: googleName,
+            urlname: googleUrlname,
             email: user.email,
             password: null,
           });
           token.id = newUser._id.toString();
+          token.urlname = googleUrlname;
           console.log("✅ Google user added to DB");
         } else {
           token.id = existingUser._id.toString();
+          token.urlname = existingUser.urlname;
           console.log("✅ Google user already exists in DB");
         }
       }
@@ -100,6 +108,8 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
+        session.user.urlname = token.urlname;
+         session.user.name = token.urlname;
       }
       return session;
     },
