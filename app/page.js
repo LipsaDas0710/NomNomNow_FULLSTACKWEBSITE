@@ -108,24 +108,35 @@
 // }
 
 
-'use client'
-import React from 'react'
-import { useRouter } from 'next/navigation';
+// 'use client'
+// import React from 'react'
+// import { useRouter } from 'next/navigation';
 
 
-export default function MainPage ()  {
+// export default function MainPage ()  {
 
-  const router = useRouter();
+//   const router = useRouter();
 
-  return (
-    <div>
-      uhugigrthgrht
-      <p>gjrhfrhfurj</p>
-      <h1 className='text-black dark:text-white' onClick={()=>router.push('/Home')}>App</h1>
-      <h1 className='text-black dark:text-white' onClick={()=>router.push('/SignIn')}>signin </h1>
-      <h1 className='text-black dark:text-white' onClick={()=>router.push('/Login')}>login </h1>
+//   return (
+//     <div>
+//       uhugigrthgrht
+//       <p>gjrhfrhfurj</p>
+//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Home')}>App</h1>
+//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/SignIn')}>signin </h1>
+//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Login')}>login </h1>
        
-    </div>
+//     </div>
+//   )
+// }
+
+import HeroSection from '@/components/HeroSection'
+import InfoSection from '@/components/InfoSection'
+
+export default function Home() {
+  return (
+    <main className="bg-black text-white">
+      <HeroSection />
+      <InfoSection />
+    </main>
   )
 }
-
