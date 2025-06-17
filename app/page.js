@@ -112,6 +112,7 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
 
+
 export default function MainPage ()  {
 
   const router = useRouter();
@@ -123,6 +124,7 @@ export default function MainPage ()  {
       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Home')}>App</h1>
       <h1 className='text-black dark:text-white' onClick={()=>router.push('/SignIn')}>signin </h1>
       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Login')}>login </h1>
+       
     </div>
   )
 }

@@ -48,6 +48,7 @@ useEffect(() => {
     <html lang="en">
       <body className={inter.className} >
         <Provider>
+     
           <BusinessProvider>
           <SelectedBusinessContext.Provider value={{selectedBusiness,setSelectedBusiness}}>
           <UserLocationContext.Provider value={{userLocation,setUserLocation}}>
@@ -58,7 +59,7 @@ useEffect(() => {
           </UserLocationContext.Provider>
           </SelectedBusinessContext.Provider>
           </BusinessProvider>
-     
+        
         </Provider>
         </body>
     </html>
