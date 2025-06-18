@@ -267,15 +267,15 @@ function HeaderNavBar() {
           {/* md configure for navBar and search */}
           <div className="flex space-x-6 mb-4 ">
             <h2 className="cursor-pointer hover:text-blue-500 m-3" 
-                onClick={() => router.push('/Home')}>
+                onClick={() => router.push(`/${session.user.urlname}/Home`)}>
               Home
             </h2>
             <h2 className="cursor-pointer hover:text-blue-500 m-3" 
-                onClick={() => router.push('/Profile/Review')}>
+                onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
               Profile
             </h2>
             <h2 className="cursor-pointer hover:text-blue-500 m-3" 
-                onClick={() => router.push('/Profile/Favourite')}>
+                onClick={() => router.push(`/${session.user.urlname}/Profile/Favourite`)}>
               Favourite
             </h2>
           </div>

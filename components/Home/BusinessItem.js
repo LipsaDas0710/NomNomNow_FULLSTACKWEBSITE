@@ -4,6 +4,7 @@ import { UserLocationContext } from '../../context/UserlocationContext'
 import Heart from "react-heart"
 import { AlignJustify } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react'
 
 
 const BusinessItem = ({business, image, showDir=false}) => {
@@ -12,6 +13,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const [active, setActive] = useState(false);
   const [isClick,setClick]=useState(false);
   const router= useRouter();
+  const { data: session } = useSession();
 
 
     useEffect(()=>{
@@ -67,7 +69,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
 
   }).toString();
 
-  router.push(`/AboutRestaurant/BookTable?${query}`);
+  router.push(`/${session.user.urlname}/AboutRestaurant/BookTable?${query}`);
 };
 
         

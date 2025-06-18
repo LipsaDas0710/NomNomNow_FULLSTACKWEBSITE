@@ -1,8 +1,9 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { UserLocationContext } from '../../context/UserlocationContext'
+import { UserLocationContext } from '../../../../context/UserlocationContext'
 import { useSearchParams } from 'next/navigation';
 import { useContext } from "react";
+import { useSession } from 'next-auth/react'
 
 export default function RestaurantLayout({ children }) {
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
@@ -14,6 +15,7 @@ export default function RestaurantLayout({ children }) {
     const id = searchParams.get('id');
     const lat = searchParams.get('lat');
     const lng = searchParams.get('lng');
+    const { data: session } = useSession();
     
  const onDirectionClick=()=>{
       window.open('https://www.google.com/maps/dir/?api=1&origin='+
@@ -75,13 +77,13 @@ const navigateWithBusinessData = (targetPath) => {
         <div className="flex space-x-6 mt-6 mb-4 text-gray-600 text-lg border-b">
         <div
           className="cursor-pointer hover:text-pink-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
-          onClick={() => navigateWithBusinessData('/AboutRestaurant/AddReview')}
+          onClick={() => navigateWithBusinessData(`/${session.user.urlname}/AboutRestaurant/AddReview`)}
         >
             Add a Review
         </div>
         <div
           className="cursor-pointer hover:text-pink-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
-          onClick={() => navigateWithBusinessData('/AboutRestaurant/BookTable')}
+          onClick={() => navigateWithBusinessData(`/${session.user.urlname}/AboutRestaurant/BookTable`)}
         >
           Book a Table
         </div>

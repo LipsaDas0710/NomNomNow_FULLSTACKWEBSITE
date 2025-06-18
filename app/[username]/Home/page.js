@@ -7,7 +7,10 @@ export default async function Home({ params }) {
 
   // Since your folder is named [username], the param will be params.username
   // But you're redirecting with urlname, so you need to search by urlName field
-  const urlname = params.username; // This gets the dynamic route parameter
+  // This gets the dynamic route parameter
+  // Await the params object before accessing its properties
+  const resolvedParams = await params;
+  const urlname = resolvedParams.username; // Now this works correctly
   
   // Search by urlName field in your database (not username field)
   const user = await User.findOne({ urlName: urlname });
