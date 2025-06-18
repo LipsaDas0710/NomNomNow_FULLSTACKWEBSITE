@@ -5,7 +5,7 @@ import { connectDB } from "../../../lib/mongodb";
 import User from "../../../../models/user";
 import { verifyPassword } from "../../../lib/auth";
 
-const handler = NextAuth({
+export const authOptions =({
   pages: {
     signIn: '/SignIn', // 👈 this tells NextAuth to use your custom sign-in page
   },
@@ -108,4 +108,5 @@ const handler = NextAuth({
   },
 });
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
