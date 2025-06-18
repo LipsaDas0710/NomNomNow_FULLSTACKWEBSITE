@@ -36,6 +36,8 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {
+  const router= useRouter();
+
   return (
     // <div className="relative w-full h-screen overflow-hidden">
     //   {/* Background Video */}

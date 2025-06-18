@@ -1,24 +1,38 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function SignInPage() {
-
-    // Function to handle Google Sign-In(in sign-in page)
-    const handleGoogleSignIn = () => {
-        signIn("google", { callbackUrl: "/" }); // redirect after login
-    };
-
-
   const router = useRouter();
+  const { data: session, status } = useSession();
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const [error, setError] = useState('');
+
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user?.urlname) {
+      router.push(`/${session.user.urlname}/Home`);
+    }
+  }, [status, session, router]);
+  
+  // // Redirect if user is already logged in
+  // useEffect(() => {
+  //   if (status === 'authenticated' && session?.user?.urlname) {
+  //     router.push(`/${session.urlname}/Home`);
+  //   }
+  // }, [status, session, router]);
+
+  // Function to handle Google Sign-In
+  const handleGoogleSignIn = () => {
+    signIn("google", { callbackUrl: "/" }); // Let callback handle redirect
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -38,7 +52,11 @@ export default function SignInPage() {
     });
 
     if (res.ok) {
-      router.push('/');
+      // The useEffect will handle the redirect once session is updated
+      // Or you can wait a moment for session to update
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } else {
       setError('Invalid email or password');
     }
@@ -68,27 +86,26 @@ export default function SignInPage() {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full mb-4"
         >
           Login
         </button>
-
-     <button
+        <button
+          type="button"
           onClick={handleGoogleSignIn}
-          style={{
-            backgroundColor: "white",
-            color: "black",
-            border: "none",
-            padding: "0.75rem 1rem",
-            borderRadius: "0.5rem",
-            cursor: "pointer",
-            fontWeight: "bold"
-          }}
+          className="w-full bg-white text-black border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 mb-4"
         >
           Sign in with Google
         </button>
-        <div>New here? <span onClick={()=>router.push('/SignIn')} className='hover:text-blue-500'>Sign up</span></div>
-
+        <div>
+          New here? 
+          <span 
+            onClick={() => router.push('/SignIn')} 
+            className='hover:text-blue-500 cursor-pointer ml-1'
+          >
+            Sign up
+          </span>
+        </div>
       </form>
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
