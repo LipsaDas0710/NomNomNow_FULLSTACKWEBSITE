@@ -45,9 +45,9 @@ const navigateWithBusinessData = (targetPath) => {
       {/* Top info section */}
       <div className="px-10 py-6">
         <h1 className="text-4xl font-bold">{name}</h1>
-        <p className="text-gray-600 mt-1">
+        {/* <p className="text-gray-600 mt-1">
           <span className="text-blue-700">{category}</span>, <span className="text-blue-700">Japanese</span>, <span className="text-blue-700">Sushi</span>
-        </p>
+        </p> */}
         <p className="text-gray-500 mt-1">{address}</p>
        
 

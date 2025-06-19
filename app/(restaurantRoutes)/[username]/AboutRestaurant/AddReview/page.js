@@ -84,6 +84,7 @@ export default function AddReviewForm() {
     formData.append('reviewText', reviewText.trim());
     formData.append('rating', rating.toString());
     formData.append('restaurantId', id);
+    formData.append('restaurantName', name);
     
     // Append all images
     images.forEach((image, index) => {

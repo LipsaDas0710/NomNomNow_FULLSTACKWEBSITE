@@ -35,7 +35,7 @@ export async function POST(req) {
       });
     }
 
-    const { restaurantId, date, time, numberOfGuests, specialRequest } = await req.json();
+    const { restaurantId,restaurantName, date, time, numberOfGuests, specialRequest } = await req.json();
     
     // Validate required fields
     if (!restaurantId || !date || !time || !numberOfGuests) {
@@ -49,6 +49,7 @@ export async function POST(req) {
     const newBooking = await Booking.create({
       user: userId,
       restaurantId,
+      restaurantName,
       date: new Date(date),
       time,
       numberOfGuests,

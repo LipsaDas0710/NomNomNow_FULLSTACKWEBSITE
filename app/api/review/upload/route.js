@@ -40,12 +40,13 @@ export async function POST(req) {
     const reviewText = formData.get('reviewText');
     const rating = Number(formData.get('rating'));
     const restaurantId = formData.get('restaurantId');
+    const restaurantName = formData.get('restaurantName');
     
     // Get all image files - formData.getAll() returns array of all files with same name
     const imageFiles = formData.getAll('images');
     console.log(`Received ${imageFiles.length} image files`);
     
-    console.log({ reviewText, rating, restaurantId, imageCount: imageFiles.length });
+    console.log({ reviewText, rating, restaurantId,restaurantName, imageCount: imageFiles.length });
 
     let uploadedImageFilenames = [];
 
@@ -125,6 +126,7 @@ export async function POST(req) {
     const newReview = new Review({
       user: userId,
       restaurantId,
+      restaurantName,
       rating,
       comment: reviewText,
       images: uploadedImageFilenames, // Array of filenames

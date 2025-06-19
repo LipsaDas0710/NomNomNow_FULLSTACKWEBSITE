@@ -69,6 +69,7 @@ export default function BookTable() {
   try {
     const bookingData = {
       restaurantId: id,
+      restaurantName: name,
       date: selectedDate,
       time: selectedSlot,
       numberOfGuests: guestCount,
