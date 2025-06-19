@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import { UserLocationContext } from '../../../../context/UserlocationContext'
 import { useSearchParams } from 'next/navigation';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSession } from 'next-auth/react'
+import Heart from "react-heart"
 
 export default function RestaurantLayout({ children }) {
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
@@ -16,6 +17,8 @@ export default function RestaurantLayout({ children }) {
     const lat = searchParams.get('lat');
     const lng = searchParams.get('lng');
     const { data: session } = useSession();
+     const [isClick,setClick]=useState(false);
+     const [active, setActive] = useState(false);
     
  const onDirectionClick=()=>{
       window.open('https://www.google.com/maps/dir/?api=1&origin='+
@@ -42,25 +45,14 @@ const navigateWithBusinessData = (targetPath) => {
 
   return (
     <div className="font-sans">
+
+
       {/* Top info section */}
       <div className="px-10 py-6">
         <h1 className="text-4xl font-bold">{name}</h1>
-        {/* <p className="text-gray-600 mt-1">
-          <span className="text-blue-700">{category}</span>, <span className="text-blue-700">Japanese</span>, <span className="text-blue-700">Sushi</span>
-        </p> */}
         <p className="text-gray-500 mt-1">{address}</p>
-       
 
-        {/* Open hours and contact */}
-        {/* <div className="flex items-center mt-3 gap-4 flex-wrap">
-          <div className="text-red-500 border px-3 py-1 rounded-full border-red-300 text-sm font-medium">
-            Open now - 9am – 12midnight (Today)
-          </div>
-          <div className="text-gray-700 text-sm">₹1,500 for two</div>
-          <a href="tel:+919560709104" className="text-sm text-pink-600 font-medium">
-            +91 95607 09104
-          </a>
-        </div> */}
+
 
         {/* Buttons */}
         <div className="mt-4 flex gap-4 flex-wrap">
@@ -73,6 +65,9 @@ const navigateWithBusinessData = (targetPath) => {
           <button className="border rounded-md px-4 py-2 flex items-center gap-2">
             <span>💬</span> Reviews
           </button>
+          <div className="w-8 h-8">
+            <Heart isActive={active} onClick={() => setActive(!active)} animationTrigger = "both" inactiveColor = "rgba(173, 48, 21)" activeColor = "#ad3015" style = {{marginTop:'15px'}} animationDuration = {0.1}/>
+          </div>
         </div>
         <div className="flex space-x-6 mt-6 mb-4 text-gray-600 text-lg border-b">
         <div
@@ -90,6 +85,7 @@ const navigateWithBusinessData = (targetPath) => {
       </div>
 
       </div>
+
 
       {/* Page-specific content */}
       <div className="p-10">{children}</div>
