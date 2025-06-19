@@ -257,7 +257,7 @@ function HeaderNavBar() {
     <div className="flex items-center justify-between p-2 shadow-md">
       <div className="flex gap-7 items-center">
         <div className=" md:flex">
-          <Image src="/logo.png" alt="logo" width={50} height={50} />
+          {/* <Image src="/logo.png" alt="logo" width={50} height={50} /> */}
           <h2 className="cursor-pointer hover:text-blue-500 mt-2.5 text-sm md:text-lg ml-1" 
               onClick={() => router.push('/')}>
             NomNomNow

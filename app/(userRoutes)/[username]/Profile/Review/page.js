@@ -1,15 +1,3 @@
-// export default function ReviewsPage({params}) {
-//   return (
-//     <div className="flex flex-col items-center justify-center mt-10">
-//       <h1 className="text-2xl font-bold mb-4 text-gray-700">Your Reviews</h1>
-//       <p className="text-gray-500">You haven’t written any reviews yet.</p>
-//       <h2>resta name</h2>
-//       <p>your rating</p>
-//       <p>your review</p>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -17,27 +5,20 @@ import { useEffect, useState } from "react";
 export default function ReviewPage() {
   const [reviews, setReviews] = useState([]);
 
+
   useEffect(() => {
-    const fetchReviews = async () => {
-      // Replace with your real API call
-      const data = [
-        {
-          restaurantName: "Spicy Villa",
-          rating: 4.5,
-          comment: "Amazing flavors and cozy vibe!",
-          images: ["/api/image/1", "/api/image/2"],
-        },
-        {
-          restaurantName: "Sushi Zen",
-          rating: 5,
-          comment: "Best sushi in town. Highly recommend!",
-          images: [],
-        },
-      ];
-      setReviews(data);
-    };
-    fetchReviews();
-  }, []);
+  const fetchReviews = async () => {
+    const res = await fetch("/api/review/get");
+    const json = await res.json();
+    if (json.success) {
+      setReviews(json.reviews);
+    } else {
+      console.error("Failed to fetch reviews", json.error);
+    }
+  };
+  fetchReviews();
+}, []);
+
 
   return (
     <div className="flex flex-col items-center justify-center mt-10 px-4 sm:px-6 lg:px-8">
