@@ -29,20 +29,7 @@ const ProfileLayout = ({ children }) => {
             />
           )}
           <h2 className="text-2xl text-white font-semibold md:mt-4">{session.user.name}</h2>
-          {/* <div className="text-white">
-            <h2 className="text-2xl font-semibold md:mt-20">{session.user.name}</h2>
-            <div className="flex space-x-6 mt-2 text-sm md:ml-90 md:mt-10">
-              <span className="flex flex-col items-center">
-                <span className="text-xl font-bold">0</span> Reviews
-              </span>
-              <span className="flex flex-col items-center">
-                <span className="text-xl font-bold">0</span> Followers
-              </span>
-            </div>
-          </div> */}
-          {/* <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg mr-2 md:ml-15">
-            Edit profile
-          </button> */}
+
         </div>
       </div>
 
@@ -52,22 +39,22 @@ const ProfileLayout = ({ children }) => {
         <div className="w-1/4 pr-10">
           <h3 className="text-gray-700 font-semibold mb-4 tracking-wide">ACTIVITY</h3>
           <ul className="space-y-4 text-lg">
-            <li className="block hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
+            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
               Reviews
             </li>
-            <li className="hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Favourite`)}>Favourites</li>
+            <li className="hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Favourite`)}>Favourites</li>
           </ul>
 
           <h3 className="mt-10 text-gray-700 font-semibold mb-4 tracking-wide">TABLE BOOKING</h3>
           <ul className="space-y-4 text-lg">
-            <li className="block hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/YourBooking`)}>
+            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/YourBooking`)}>
               Your Bookings
             </li>
           </ul>
 
           {/* <h3 className="mt-10 text-gray-700 font-semibold mb-4 tracking-wide">ACCOUNT SETTINGS</h3>
           <ul className="space-y-4 text-lg">
-            <li className="hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 cursor-pointer text-gray-500">
+            <li className="hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500">
               Delete Account
             </li>
           </ul> */}

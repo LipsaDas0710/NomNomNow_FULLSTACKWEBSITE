@@ -70,7 +70,7 @@ export default function FavouritePage() {
               <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2" >
                 {favourite.restaurantName}
               </h2>
-              <button className="bg-amber-500 text-white rounded-lg p-2 hover:bg-amber-800" onClick={()=>handleClick(favourite)}>Book Now</button>
+              <button className="bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-700" onClick={()=>handleClick(favourite)}>Book Now</button>
             </div>
           ))}
         </div>

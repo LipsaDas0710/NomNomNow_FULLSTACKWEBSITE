@@ -188,13 +188,13 @@ const navigateWithBusinessData = (targetPath) => {
         </div>
         <div className="flex space-x-6 mt-6 mb-4 text-gray-600 text-lg border-b">
         <div
-          className="cursor-pointer hover:text-pink-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
+          className="cursor-pointer hover:text-blue-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
           onClick={() => navigateWithBusinessData(`/${session.user.urlname}/AboutRestaurant/AddReview`)}
         >
             Add a Review
         </div>
         <div
-          className="cursor-pointer hover:text-pink-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
+          className="cursor-pointer hover:text-blue-600 text-black dark:text-white px-4 py-2 rounded-lg pb-2 m-3"
           onClick={() => navigateWithBusinessData(`/${session.user.urlname}/AboutRestaurant/BookTable`)}
         >
           Book a Table
