@@ -15,7 +15,7 @@ export async function POST(req) {
 
     const { restaurantId, restaurantName } = await req.json();
 
-    if (!restaurantId || restaurantName ) {
+    if (!restaurantId || ! restaurantName ) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
 

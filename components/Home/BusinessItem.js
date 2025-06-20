@@ -15,6 +15,63 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const router= useRouter();
   const { data: session } = useSession();
 
+  const handleHeartClick = async () => {
+  const newActiveState = !active;
+  setActive(newActiveState);
+
+  if (newActiveState) {
+    try {
+      const favoriteData = {
+        restaurantId: business.id,
+        restaurantName: business.name,
+      };
+
+      const response = await fetch('/api/favourite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(favoriteData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error("Failed to save favorite:", result.error);
+        alert(`Failed to save favorite: ${result.error}`);
+      }
+    } catch (err) {
+      console.error("Error saving favorite:", err);
+      alert("Error saving favorite.");
+    }
+  } else {
+    // Optional: You could also implement a DELETE to remove favorite here
+  }
+};
+
+useEffect(() => {
+  const checkIfFavorited = async () => {
+    if (!session) return;
+
+    try {
+      const res = await fetch('/api/favourite');
+      const data = await res.json();
+
+      if (res.ok && Array.isArray(data.favourite)) {
+        const isAlreadyFavourite = data.favourite.some(
+          (fav) => fav.restaurantId === business.id
+        );
+        setActive(isAlreadyFavourite);
+      }
+    } catch (error) {
+      console.error("Error checking favourite status:", error);
+    }
+  };
+
+  checkIfFavorited();
+}, [session, business.id]);
+
+
 
     useEffect(()=>{
       calculateDistance(
@@ -92,7 +149,15 @@ const BusinessItem = ({business, image, showDir=false}) => {
         <div className='flex justify-between'>
           <h2 className='text-[13px] font-bold mt-3 line-clamp-1 text-black'>{business.name}</h2>
           <div style={{ width: "17px" }} className='mr-3'>
-			<Heart isActive={active} onClick={() => setActive(!active)} animationTrigger = "both" inactiveColor = "rgba(173, 48, 21)" activeColor = "#ad3015" style = {{marginTop:'15px'}} animationDuration = {0.1}/>
+        <Heart
+                        isActive={active}
+                        onClick={handleHeartClick}
+                        animationTrigger="both"
+                        inactiveColor="rgba(173, 48, 21)"
+                        activeColor="#ad3015"
+                        style={{ marginTop: '15px' }}
+                        animationDuration={0.1}
+                      />
 		</div>
         </div>        
           <h2 className='text-[10px] text-gray-400 

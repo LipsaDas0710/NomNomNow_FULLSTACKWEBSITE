@@ -2,11 +2,12 @@
 import { useRouter } from "next/navigation";
 import { UserLocationContext } from '../../../../context/UserlocationContext'
 import { useSearchParams } from 'next/navigation';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useSession } from 'next-auth/react'
 import Heart from "react-heart"
 
 export default function RestaurantLayout({ children }) {
+
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
     const router=useRouter();
     const searchParams = useSearchParams();
@@ -17,9 +18,66 @@ export default function RestaurantLayout({ children }) {
     const lat = searchParams.get('lat');
     const lng = searchParams.get('lng');
     const { data: session } = useSession();
-     const [isClick,setClick]=useState(false);
-     const [active, setActive] = useState(false);
-    
+    const [isClick,setClick]=useState(false);
+    const [active, setActive] = useState(false);
+
+
+  const handleHeartClick = async () => {
+  const newActiveState = !active;
+  setActive(newActiveState);
+
+  if (newActiveState) {
+    try {
+      const favoriteData = {
+        restaurantId: id,
+        restaurantName: name,
+      };
+
+      const response = await fetch('/api/favourite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(favoriteData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error("Failed to save favorite:", result.error);
+        alert(`Failed to save favorite: ${result.error}`);
+      }
+    } catch (err) {
+      console.error("Error saving favorite:", err);
+      alert("Error saving favorite.");
+    }
+  } else {
+    // Optional: You could also implement a DELETE to remove favorite here
+  }
+};
+
+useEffect(() => {
+  const checkIfFavorited = async () => {
+    if (!session) return;
+
+    try {
+      const res = await fetch('/api/favourite');
+      const data = await res.json();
+
+      if (res.ok && Array.isArray(data.favourite)) {
+        const isAlreadyFavourite = data.favourite.some(
+          (fav) => fav.restaurantId === id
+        );
+        setActive(isAlreadyFavourite);
+      }
+    } catch (error) {
+      console.error("Error checking favourite status:", error);
+    }
+  };
+
+  checkIfFavorited();
+}, [session, id]);
+
  const onDirectionClick=()=>{
       window.open('https://www.google.com/maps/dir/?api=1&origin='+
       userLocation.lat+','+userLocation.lng+'&destination='
@@ -66,7 +124,16 @@ const navigateWithBusinessData = (targetPath) => {
             <span>💬</span> Reviews
           </button>
           <div className="w-8 h-8">
-            <Heart isActive={active} onClick={() => setActive(!active)} animationTrigger = "both" inactiveColor = "rgba(173, 48, 21)" activeColor = "#ad3015" style = {{marginTop:'15px'}} animationDuration = {0.1}/>
+            <Heart
+                isActive={active}
+                onClick={handleHeartClick}
+                animationTrigger="both"
+                inactiveColor="rgba(173, 48, 21)"
+                activeColor="#ad3015"
+                style={{ marginTop: '15px' }}
+                animationDuration={0.1}
+              />
+
           </div>
         </div>
         <div className="flex space-x-6 mt-6 mb-4 text-gray-600 text-lg border-b">
