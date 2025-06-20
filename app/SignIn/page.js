@@ -24,7 +24,7 @@ export default function Register() {
     // Function to handle Google Sign-In (in register page)
     const handleGoogleSignIn = () => {
         // Redirect to SignIn page so the useEffect above can handle the redirect
-        signIn("google", { callbackUrl: "/SignIn" });
+        signIn("google", { callbackUrl: "/" });
     };
 
     const [formData, setFormData] = useState({
