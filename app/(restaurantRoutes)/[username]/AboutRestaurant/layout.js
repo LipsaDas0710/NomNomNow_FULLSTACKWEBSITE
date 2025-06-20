@@ -21,40 +21,84 @@ export default function RestaurantLayout({ children }) {
     const [isClick,setClick]=useState(false);
     const [active, setActive] = useState(false);
 
-
-  const handleHeartClick = async () => {
+    const handleHeartClick = async () => {
   const newActiveState = !active;
   setActive(newActiveState);
 
-  if (newActiveState) {
-    try {
-      const favoriteData = {
-        restaurantId: id,
-        restaurantName: name,
-      };
+  const favoriteData = {
+    restaurantId: id,
+    restaurantName: name,
+  };
 
+  try {
+    if (newActiveState) {
+      // === Add to favourites ===
       const response = await fetch('/api/favourite', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(favoriteData),
       });
 
       const result = await response.json();
-
       if (!response.ok) {
         console.error("Failed to save favorite:", result.error);
         alert(`Failed to save favorite: ${result.error}`);
       }
-    } catch (err) {
-      console.error("Error saving favorite:", err);
-      alert("Error saving favorite.");
+    } else {
+      // === Remove from favourites ===
+      const response = await fetch('/api/favourite', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurantId: id }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        console.error("Failed to delete favorite:", result.error);
+        alert(`Failed to delete favorite: ${result.error}`);
+      }
     }
-  } else {
-    // Optional: You could also implement a DELETE to remove favorite here
+  } catch (err) {
+    console.error("Error updating favorite:", err);
+    alert("Error updating favorite.");
   }
 };
+
+
+
+//   const handleHeartClick = async () => {
+//   const newActiveState = !active;
+//   setActive(newActiveState);
+
+//   if (newActiveState) {
+//     try {
+//       const favoriteData = {
+//         restaurantId: id,
+//         restaurantName: name,
+//       };
+
+//       const response = await fetch('/api/favourite', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(favoriteData),
+//       });
+
+//       const result = await response.json();
+
+//       if (!response.ok) {
+//         console.error("Failed to save favorite:", result.error);
+//         alert(`Failed to save favorite: ${result.error}`);
+//       }
+//     } catch (err) {
+//       console.error("Error saving favorite:", err);
+//       alert("Error saving favorite.");
+//     }
+//   } else {
+//     // Optional: You could also implement a DELETE to remove favorite here
+//   }
+// };
 
 useEffect(() => {
   const checkIfFavorited = async () => {
@@ -117,12 +161,12 @@ const navigateWithBusinessData = (targetPath) => {
           <button className="border rounded-md px-4 py-2 flex items-center gap-2" onClick={()=>onDirectionClick()}>
             <span>📍</span> Direction
           </button>
-          <button className="border rounded-md px-4 py-2 flex items-center gap-2">
+          {/* <button className="border rounded-md px-4 py-2 flex items-center gap-2">
             <span>🔗</span> Share
           </button>
           <button className="border rounded-md px-4 py-2 flex items-center gap-2">
             <span>💬</span> Reviews
-          </button>
+          </button> */}
           <div className="w-8 h-8">
             <Heart
                 isActive={active}
@@ -130,7 +174,7 @@ const navigateWithBusinessData = (targetPath) => {
                 animationTrigger="both"
                 inactiveColor="rgba(173, 48, 21)"
                 activeColor="#ad3015"
-                style={{ marginTop: '15px' }}
+                style={{ marginTop: '5px' }}
                 animationDuration={0.1}
               />
 

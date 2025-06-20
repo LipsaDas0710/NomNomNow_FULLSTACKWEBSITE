@@ -53,3 +53,32 @@ export async function GET(req) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
+
+
+// === DELETE: Remove Favourite ===
+export async function DELETE(req) {
+  try {
+    await connectDB();
+
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user?.id) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+    }
+
+    const { restaurantId } = await req.json();
+
+    if (!restaurantId) {
+      return new Response(JSON.stringify({ error: "Missing restaurantId" }), { status: 400 });
+    }
+
+    await Favourite.findOneAndDelete({
+      user: session.user.id,
+      restaurantId,
+    });
+
+    return new Response(JSON.stringify({ success: true, message: "Favourite removed" }), { status: 200 });
+  } catch (error) {
+    console.error("Delete favourite error:", error);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
+}

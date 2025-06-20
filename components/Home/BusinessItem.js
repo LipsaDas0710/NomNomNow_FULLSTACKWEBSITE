@@ -19,35 +19,79 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const newActiveState = !active;
   setActive(newActiveState);
 
-  if (newActiveState) {
-    try {
-      const favoriteData = {
-        restaurantId: business.id,
-        restaurantName: business.name,
-      };
+  const favoriteData = {
+    restaurantId: business.id,
+    restaurantName: business.name,
+  };
 
+  try {
+    if (newActiveState) {
+      // === Add to favourites ===
       const response = await fetch('/api/favourite', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(favoriteData),
       });
 
       const result = await response.json();
-
       if (!response.ok) {
         console.error("Failed to save favorite:", result.error);
         alert(`Failed to save favorite: ${result.error}`);
       }
-    } catch (err) {
-      console.error("Error saving favorite:", err);
-      alert("Error saving favorite.");
+    } else {
+      // === Remove from favourites ===
+      const response = await fetch('/api/favourite', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurantId: id }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        console.error("Failed to delete favorite:", result.error);
+        alert(`Failed to delete favorite: ${result.error}`);
+      }
     }
-  } else {
-    // Optional: You could also implement a DELETE to remove favorite here
+  } catch (err) {
+    console.error("Error updating favorite:", err);
+    alert("Error updating favorite.");
   }
 };
+
+
+//   const handleHeartClick = async () => {
+//   const newActiveState = !active;
+//   setActive(newActiveState);
+
+//   if (newActiveState) {
+//     try {
+//       const favoriteData = {
+//         restaurantId: business.id,
+//         restaurantName: business.name,
+//       };
+
+//       const response = await fetch('/api/favourite', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(favoriteData),
+//       });
+
+//       const result = await response.json();
+
+//       if (!response.ok) {
+//         console.error("Failed to save favorite:", result.error);
+//         alert(`Failed to save favorite: ${result.error}`);
+//       }
+//     } catch (err) {
+//       console.error("Error saving favorite:", err);
+//       alert("Error saving favorite.");
+//     }
+//   } else {
+//     // Optional: You could also implement a DELETE to remove favorite here
+//   }
+// };
 
 useEffect(() => {
   const checkIfFavorited = async () => {

@@ -35,9 +35,6 @@ const ProfileLayout = ({ children }) => {
                 <span className="text-xl font-bold">0</span> Reviews
               </span>
               <span className="flex flex-col items-center">
-                <span className="text-xl font-bold">0</span> Photos
-              </span>
-              <span className="flex flex-col items-center">
                 <span className="text-xl font-bold">0</span> Followers
               </span>
             </div>
