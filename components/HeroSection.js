@@ -39,38 +39,6 @@ const HeroSection = () => {
   const router= useRouter();
 
   return (
-    // <div className="relative w-full h-screen overflow-hidden">
-    //   {/* Background Video */}
-    //   <video
-    //    autoPlay
-    //    loop
-    //    muted
-    //    playsInline
-    //    className="w-full h-screen object-cover"
-    //   >
-    //     <source src="/video1.mp4" type="video/mp4" />
-    //     Your browser does not support the video tag.
-    //   </video>
-
-    //   {/* Overlay Content */}
-    //   <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center z-10 px-4">
-    //     <h1 className="text-4xl md:text-6xl font-bold text-white">
-    //       <span className="italic font-semibold">zomato</span><br />
-    //       India’s #1 <br /> <span className="font-normal">food delivery app</span>
-    //     </h1>
-    //     <p className="mt-4 text-lg md:text-xl font-light text-white">
-    //       Experience fast & easy online ordering on the Zomato app
-    //     </p>
-
-    //     {/* App Badges */}
-    //     <div className="flex gap-4 mt-6 flex-wrap justify-center">
-    //       <img src="/google-play-badge.png" alt="Google Play" className="h-12" />
-    //       <img src="/app-store-badge.png" alt="App Store" className="h-12" />
-    //     </div>
-    //   </div>
-    // </div>
-
-
    <div className="relative h-screen w-screen overflow-hidden">
       {/* ✅ Background Video */}
       <video
@@ -97,10 +65,12 @@ const HeroSection = () => {
           <span>Fast, easy restaurant discovery</span> <span>because your cravings deserve better.</span><span>Only on NomNomNow</span>
         </p>
 
-        <div className='flex gap-2 mt-5'>
-          <h1 className='text-white font-medium border-2 rounded-md p-3 hover:bg-purple-400 ' onClick={()=>router.push('/Home')}>App</h1>
-          <h1 className='text-white font-medium border-2 rounded-md p-3 hover:bg-purple-400' onClick={()=>router.push('/SignIn')}>signin </h1>
-          <h1 className='text-white font-medium border-2 rounded-md p-3 hover:bg-purple-400' onClick={()=>router.push('/Login')}>login </h1>        
+        <div className='grid gap-3'>
+          <div className='flex gap-4 mt-6 flex-wrap justify-center'>
+            <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: cursor-pointer' onClick={()=>router.push('/SignIn')}>signin </h1>
+          <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: 1cursor-pointer' onClick={()=>router.push('/Login')}>login </h1>
+          </div>
+             <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: cursor-pointer' onClick={()=>router.push('/Home')}>App</h1>     
         </div>
 
         {/* ✅ App Store Badges

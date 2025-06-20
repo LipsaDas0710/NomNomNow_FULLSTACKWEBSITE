@@ -10,11 +10,11 @@ export default function Home() {
   const { data: session, status } = useSession(); // ✅ define session here
   const router = useRouter();
   
-    useEffect(() => {
-    if (status === 'authenticated' && session?.user?.urlname) {
-      router.replace(`/${session.user.urlname}/Home`);
-    }
-  }, [status, session, router]);
+  //   useEffect(() => {
+  //   if (status === 'authenticated' && session?.user?.urlname) {
+  //     router.replace(`/${session.user.urlname}/Home`);
+  //   }
+  // }, [status, session, router]);
 
   return (
     <main className="bg-black text-white">
