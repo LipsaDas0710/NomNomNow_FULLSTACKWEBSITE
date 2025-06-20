@@ -15,49 +15,7 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const router= useRouter();
   const { data: session } = useSession();
 
-  const handleHeartClick = async () => {
-  const newActiveState = !active;
-  setActive(newActiveState);
-
-  const favoriteData = {
-    restaurantId: business.id,
-    restaurantName: business.name,
-  };
-
-  try {
-    if (newActiveState) {
-      // === Add to favourites ===
-      const response = await fetch('/api/favourite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(favoriteData),
-      });
-
-      const result = await response.json();
-      if (!response.ok) {
-        console.error("Failed to save favorite:", result.error);
-        alert(`Failed to save favorite: ${result.error}`);
-      }
-    } else {
-      // === Remove from favourites ===
-      const response = await fetch('/api/favourite', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurantId: id }),
-      });
-
-      const result = await response.json();
-      if (!response.ok) {
-        console.error("Failed to delete favorite:", result.error);
-        alert(`Failed to delete favorite: ${result.error}`);
-      }
-    }
-  } catch (err) {
-    console.error("Error updating favorite:", err);
-    alert("Error updating favorite.");
-  }
-};
-
+  
 
 //   const handleHeartClick = async () => {
 //   const newActiveState = !active;
@@ -158,6 +116,57 @@ useEffect(() => {
       +','+business.lng+'&travelmode=driving');
 
   }
+
+  //handels the heart button for favourite
+  const handleHeartClick = async () => {
+  const newActiveState = !active;
+  setActive(newActiveState);
+
+  const favoriteData = {
+    restaurantId: business.id,
+    restaurantName: business.name,
+    address: business.address,
+    category:business.category,
+    dis:distance,
+    lat:business.lat,
+    lng:business.lng,
+  };
+
+  try {
+    if (newActiveState) {
+      // === Add to favourites ===
+      const response = await fetch('/api/favourite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(favoriteData),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        console.error("Failed to save favorite:", result.error);
+        alert(`Failed to save favorite: ${result.error}`);
+      }
+    } else {
+      // === Remove from favourites ===
+      const response = await fetch('/api/favourite', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurantId: business.id }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        console.error("Failed to delete favorite:", result.error);
+        alert(`Failed to delete favorite: ${result.error}`);
+      }
+    }
+  } catch (err) {
+    console.error("Error updating favorite:", err);
+    alert("Error updating favorite.");
+  }
+};
+
+//handels the more button 
   const handleClick = () => {
   const query = new URLSearchParams({
     name: business.name,

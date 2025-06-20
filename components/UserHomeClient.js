@@ -101,7 +101,7 @@ const getPlace = () => {
       <div >
         <CategoryList onCategoryChange={(value)=>setCategory(value)}/>
         <RangeSelect onRadiusChange={(value)=>setRadius(value)}/>
-        <SelectRating/>
+        {/* <SelectRating/> */}
        
       </div>
       <div className='col-span-3 h-[600px]'><OpenStreetMapView  lat={userLocation.lat} lng={userLocation.lng}  businessList={businessList} />

@@ -13,9 +13,15 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    const { restaurantId, restaurantName } = await req.json();
+    const { restaurantId, 
+      restaurantName,
+      address,
+      category,
+      dis,
+      lat,
+      lng, } = await req.json();
 
-    if (!restaurantId || ! restaurantName ) {
+    if (!restaurantId || !restaurantName || !address || !category || !dis || !lat || !lng ) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
 
@@ -23,6 +29,11 @@ export async function POST(req) {
       user: session.user.id,
       restaurantId,
       restaurantName,
+      address,
+      category,
+      dis,
+      lat,
+      lng,
     });
 
     return new Response(JSON.stringify({ success: true, favourite: newFavourite }), { status: 201 });
@@ -82,3 +93,11 @@ export async function DELETE(req) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
+
+//  name: business.name,
+//     address: business.address,
+//     category:business.category,
+//     id:business.id,
+//     dis:distance,
+//     lat:business.lat,
+//     lng:business.lng,

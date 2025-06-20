@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function ReviewPage() {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -24,8 +25,10 @@ export default function ReviewPage() {
     <div className="flex flex-col items-center justify-center mt-10 px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mb-4 text-gray-700 dark:text-gray-200">Your Reviews</h1>
 
-      {reviews.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">You haven’t written any reviews yet.</p>
+      {loading ? (
+        <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+      ) : favourite.length === 0 ? (
+        <p className="text-gray-500 dark:text-gray-400">No reviews yet.</p>
       ) : (
         <div className="w-full max-w-3xl space-y-6">
           {reviews.map((review, index) => (

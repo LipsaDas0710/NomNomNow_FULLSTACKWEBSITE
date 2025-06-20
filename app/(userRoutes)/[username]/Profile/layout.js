@@ -28,7 +28,8 @@ const ProfileLayout = ({ children }) => {
               className="rounded-full cursor-pointer  border-4 border-white md:m-2  -ml-15 mt-9 md:w-50 md:h-50"
             />
           )}
-          <div className="text-white">
+          <h2 className="text-2xl text-white font-semibold md:mt-4">{session.user.name}</h2>
+          {/* <div className="text-white">
             <h2 className="text-2xl font-semibold md:mt-20">{session.user.name}</h2>
             <div className="flex space-x-6 mt-2 text-sm md:ml-90 md:mt-10">
               <span className="flex flex-col items-center">
@@ -38,10 +39,10 @@ const ProfileLayout = ({ children }) => {
                 <span className="text-xl font-bold">0</span> Followers
               </span>
             </div>
-          </div>
-          <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg mr-2 md:ml-15">
+          </div> */}
+          {/* <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg mr-2 md:ml-15">
             Edit profile
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -54,7 +55,6 @@ const ProfileLayout = ({ children }) => {
             <li className="block hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
               Reviews
             </li>
-            <li className="hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Photos`)}>Photos</li>
             <li className="hover:text-pink-500 hover:border-l-4 hover:border-pink-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Favourite`)}>Favourites</li>
           </ul>
 

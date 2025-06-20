@@ -15,6 +15,7 @@ export default function RestaurantLayout({ children }) {
     const address = searchParams.get('address');
     const category = searchParams.get('category');
     const id = searchParams.get('id');
+    const dis = searchParams.get('dis');
     const lat = searchParams.get('lat');
     const lng = searchParams.get('lng');
     const { data: session } = useSession();
@@ -28,6 +29,11 @@ export default function RestaurantLayout({ children }) {
   const favoriteData = {
     restaurantId: id,
     restaurantName: name,
+    address: address,
+    category:category,
+    dis:dis,
+    lat:lat,
+    lng:lng,
   };
 
   try {
