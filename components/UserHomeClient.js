@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import CategoryList from '@/components/Home/CategoryList';
 import OpenStreetMapView from './Home/OpenStreetMapView';
 import RangeSelect from '@/components/Home/RangeSelect';
-import SelectRating from '@/components/Home/SelectRating';
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
