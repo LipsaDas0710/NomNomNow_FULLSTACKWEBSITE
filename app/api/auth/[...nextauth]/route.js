@@ -71,8 +71,15 @@ export const authOptions =({
             const googleName = user.name || "Google User";
             const googleUrlname = googleName.toLowerCase().replace(/\s+/g, '');
 
+            // Ensure unique username
+        let uniqueUsername = googleName;
+        let count = 1;
+        while (await User.findOne({ username: uniqueUsername })) {
+          uniqueUsername = `${googleName} ${count++}`;
+        }
+
             const newUser = await User.create({
-              username: googleName,
+              username: uniqueUsername,
               urlName: googleUrlname, // Match your schema field name
               email: user.email,
               password: null, // Google users don't have passwords
@@ -90,7 +97,13 @@ export const authOptions =({
           // Handle credentials login
           token.urlname = user.urlname;
         }
+      }else if (!token.urlname && token.email) {
+      // This handles returning users where 'user' is not passed
+      const existingUser = await User.findOne({ email: token.email });
+      if (existingUser) {
+        token.urlname = existingUser.urlName;
       }
+    }
 
       return token;
     },
