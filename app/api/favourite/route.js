@@ -93,11 +93,3 @@ export async function DELETE(req) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
-
-//  name: business.name,
-//     address: business.address,
-//     category:business.category,
-//     id:business.id,
-//     dis:distance,
-//     lat:business.lat,
-//     lng:business.lng,

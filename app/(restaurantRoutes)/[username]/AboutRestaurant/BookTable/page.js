@@ -194,7 +194,7 @@ export default function BookTable() {
             : 'bg-gray-400 cursor-not-allowed'
         }`}
       >
-        Proceed to cart
+        Book a Table
       </button>
     </div>
   );

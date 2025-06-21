@@ -27,7 +27,7 @@ export default function ReviewPage() {
 
       {loading ? (
         <p className="text-gray-500 dark:text-gray-400">Loading...</p>
-      ) : favourite.length === 0 ? (
+      ) : reviews.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400">No reviews yet.</p>
       ) : (
         <div className="w-full max-w-3xl space-y-6">
