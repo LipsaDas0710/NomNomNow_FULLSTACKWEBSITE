@@ -28,3 +28,12 @@ body {
 
 
 }
+
+/* styles/globals.css or a global CSS file */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
