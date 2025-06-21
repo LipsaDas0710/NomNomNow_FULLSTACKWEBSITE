@@ -37,27 +37,21 @@ const ProfileLayout = ({ children }) => {
       <div className="flex px-32 pt-20 pb-10">
         {/* Sidebar */}
         <div className="w-1/4 pr-10">
-          <h3 className="text-gray-700 font-semibold mb-4 tracking-wide">ACTIVITY</h3>
+          <h3 className="text-gray-700 dark:text-white font-semibold mb-4 tracking-wide">ACTIVITY</h3>
           <ul className="space-y-4 text-lg">
-            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
+            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Review`)}>
               Reviews
             </li>
             <li className="hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/Favourite`)}>Favourites</li>
           </ul>
 
-          <h3 className="mt-10 text-gray-700 font-semibold mb-4 tracking-wide">TABLE BOOKING</h3>
+          <h3 className="mt-10 text-gray-700 font-semibold mb-4 tracking-wide dark:text-white">TABLE BOOKING</h3>
           <ul className="space-y-4 text-lg">
-            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/YourBooking`)}>
+            <li className="block hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500" onClick={() => router.push(`/${session.user.urlname}/Profile/YourBooking`)}>
               Your Bookings
             </li>
           </ul>
 
-          {/* <h3 className="mt-10 text-gray-700 font-semibold mb-4 tracking-wide">ACCOUNT SETTINGS</h3>
-          <ul className="space-y-4 text-lg">
-            <li className="hover:text-blue-500 hover:border-l-4 hover:border-blue-500 hover:pl-3 cursor-pointer text-gray-500">
-              Delete Account
-            </li>
-          </ul> */}
         </div>
 
         {/* Main content that changes: reviews/bookings */}

@@ -45,7 +45,7 @@ function BusinessList({ businessList }) {
   return (
     <div className="flex items-center gap-2 -mt-20 md:-mb-3">
       {/* Left scroll button */}
-      <button onClick={scrollLeft} className="text-2xl px-2 py-1 bg-gray-400 rounded hover:bg-gray-500">&lt;</button>
+      <button onClick={scrollLeft} className="text-2xl px-2 py-1 cursor-pointer bg-gray-400 rounded hover:bg-gray-500">&lt;</button>
 
       {/* Scrollable container */}
       <div
@@ -82,7 +82,7 @@ function BusinessList({ businessList }) {
       </div>
 
       {/* Right scroll button */}
-      <button onClick={scrollRight} className="text-2xl px-2 py-1 bg-gray-400 rounded-lg hover:bg-gray-500">&gt;</button>
+      <button onClick={scrollRight} className="text-2xl px-2 py-1 cursor-pointer bg-gray-400 rounded-lg hover:bg-gray-500">&gt;</button>
     </div>
   );
 }

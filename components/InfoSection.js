@@ -14,8 +14,7 @@ export default function InfoSection() {
          Life’s too short for mid meals.<span>Find places that slap. Every. Single. Time</span>
         </p>
         <p className="text-lg md:text-xl">
-          For over a decade, we’ve enabled our customers to discover new tastes,
-          delivered right to their doorstep.
+          From street food gems to hidden cafes — we help you find it all.
         </p>
       </div>
     </div>

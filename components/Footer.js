@@ -4,7 +4,7 @@ import { FaApple, FaGooglePlay } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="dark:bg-[#0f172a] dark:text-gray-200 px-6 py-10 pt-15  border-gray-700 bg-white text-black">
+    <footer className="dark:bg-black dark:text-gray-200 px-6 py-10 pt-15  border-gray-700 bg-white text-black">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
         
         {/* ABOUT NOMNOMNOW */}
@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* App Store Buttons */}
           <div className="flex flex-col gap-3 md:-ml-9 md:mr-6">
-            <h3   className="flex cursor-pointer items-center justify-center bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+            <h3   className="flex cursor-pointer items-center justify-center bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
               <FaApple className="mr-2 text-xl" /> Download on the App Store
             </h3>
             <h3   className="flex cursor-pointer items-center justify-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">

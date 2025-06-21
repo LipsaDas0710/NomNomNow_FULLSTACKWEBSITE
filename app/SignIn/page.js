@@ -8,10 +8,6 @@ export default function Register() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
-    useEffect(() => {
-        console.log("session:", session);
-        console.log("session status:", status);
-    }, [session, status])
 
     // Handle Google Sign-In redirect after successful authentication
     useEffect(() => {

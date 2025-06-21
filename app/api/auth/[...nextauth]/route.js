@@ -87,11 +87,9 @@ export const authOptions =({
             
             token.id = newUser._id.toString();
             token.urlname = newUser.urlName; // Use urlName from DB but store as urlname in token
-            console.log("✅ Google user added to DB:", newUser);
           } else {
             token.id = existingUser._id.toString();
             token.urlname = existingUser.urlName; // Use urlName from DB
-            console.log("✅ Google user already exists in DB:", existingUser);
           }
         } else {
           // Handle credentials login
@@ -114,8 +112,6 @@ export const authOptions =({
         session.user.urlname = token.urlname;
         // Keep the original name for display, but add urlname for routing
       }
-
-      console.log("✅ session callback output:", session);
       return session;
     },
   },
