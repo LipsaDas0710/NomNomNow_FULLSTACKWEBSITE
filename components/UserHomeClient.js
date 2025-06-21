@@ -33,22 +33,7 @@ export default  function Home() {
      useEffect(() => {
     setMounted(true);
   }, []);
-// gives me the session conformation?
 
-//     useEffect(()=>{
-//     if(mounted && !session?.user){
-//       router.push('/SignIn')
-//     }
-//   },[session, mounted])
-
-//gets me the cat. radius and mounted conformation ?
-
-// Optional: Redirect if session user !== URL username
-//   useEffect(() => {
-//     if (mounted && session && session.user?.username !== username) {
-//       router.push('/');
-//     }
-//   }, [mounted, session]);
 
 useEffect(() => {
     if (mounted && userLocation?.lat && userLocation?.lng) {
@@ -57,9 +42,7 @@ useEffect(() => {
     }
 }, [category, radius, userLocation ,mounted]);
 
-// useEffect(() => {
-//   console.log('Username param:', username);
-// }, [username]);
+
 
 // frontend api route for FourSquare for richer data
 
@@ -80,17 +63,7 @@ useEffect(() => {
 
 //openstreetmap frontend api intial use and less data 
 const getPlace = () => {
-  // setLoading(true); //  Show spinner
-  // GlobalApi.getPlace(category,radius,userLocation.lat,userLocation.lng)
-  //   .then((resp) => {
-  //     // console.log("Places data:", resp.data); // <-- Should print to console
-  //     // setBusinessList(resp.data.places); // <-- Set the business list
-  //     setLoading(false);// Hide spinner
-  //   })
-  //   .catch((err) => {
-  //     console.error("API error:", err);
-  //     setLoading(false);
-  //   });
+  // 
 };
  if (!mounted) return null; 
 

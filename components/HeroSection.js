@@ -47,7 +47,7 @@ const HeroSection = () => {
         <div className='grid gap-3'>
           <div className='flex gap-4 mt-6 flex-wrap justify-center'>
             <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg cursor-pointer' onClick={()=>router.push('/SignIn')}>Sign in </h1>
-          <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg 1cursor-pointer' onClick={()=>router.push('/Login')}>Log in </h1>
+          <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg 1 cursor-pointer' onClick={()=>router.push('/Login')}>Log in </h1>
           </div>
              <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg cursor-pointer' onClick={handleClick}>Let’s Find a Spot </h1>     
         </div>
