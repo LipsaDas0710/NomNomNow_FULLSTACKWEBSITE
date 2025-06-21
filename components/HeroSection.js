@@ -1,42 +1,21 @@
-// export default function HeroSection() {
-//   return (
-//     <div className="relative w-full h-screen overflow-hidden">
-//       {/* Background Video */}
-//       <video
-//         autoPlay
-//         loop
-//         muted
-//         playsInline
-//         className="absolute w-full h-full object-cover z-0"
-//         src="/video1.mp4"
-//       ></video>
-
-//       {/* Overlay Content */}
-//       <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center z-10 px-4">
-//         <h1 className="text-4xl md:text-6xl font-bold text-white">
-//           <span className="italic font-semibold">zomato</span><br />
-//           India’s #1 <br /> <span className="font-normal">food delivery app</span>
-//         </h1>
-//         <p className="mt-4 text-lg md:text-xl font-light">
-//           Experience fast & easy online ordering on the Zomato app
-//         </p>
-
-//         {/* App Badges */}
-//         <div className="flex gap-4 mt-6 flex-wrap justify-center">
-//           <img src="/google-play-badge.png" alt="Google Play" className="h-12" />
-//           <img src="/app-store-badge.png" alt="App Store" className="h-12" />
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const HeroSection = () => {
   const router= useRouter();
+  const { data: session } = useSession();
+
+  
+  const handleClick = () => {
+    if (session?.user?.urlname) {
+      router.push(`/${session.user.urlname}/Home`);
+    } else {
+      alert('You must be logged in to access this page.');
+    }
+  };
+
 
   return (
    <div className="relative h-screen w-screen overflow-hidden">
@@ -67,68 +46,14 @@ const HeroSection = () => {
 
         <div className='grid gap-3'>
           <div className='flex gap-4 mt-6 flex-wrap justify-center'>
-            <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: cursor-pointer' onClick={()=>router.push('/SignIn')}>signin </h1>
-          <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: 1cursor-pointer' onClick={()=>router.push('/Login')}>login </h1>
+            <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg cursor-pointer' onClick={()=>router.push('/SignIn')}>Sign in </h1>
+          <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg 1cursor-pointer' onClick={()=>router.push('/Login')}>Log in </h1>
           </div>
-             <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover: cursor-pointer' onClick={()=>router.push('/Home')}>App</h1>     
+             <h1 className='text-white font-medium border-2 rounded-md bg-black p-3 hover:text-lg cursor-pointer' onClick={handleClick}>Let’s Find a Spot </h1>     
         </div>
 
-        {/* ✅ App Store Badges
-        <div className="flex gap-4 mt-6 flex-wrap justify-center">
-          <img
-            src="/google-play-badge.png"
-            alt="Google Play"
-            className="h-12"
-          />
-          <img
-            src="/app-store-badge.png"
-            alt="App Store"
-            className="h-12"
-          />
-        </div> */}
       </div>
     </div>
-
-    // 'use client'
-// import React from 'react'
-// import { useRouter } from 'next/navigation';
-
-
-// export default function MainPage ()  {
-
-//   const router = useRouter();
-
-//   return (
-//     <div>
-//       uhugigrthgrht
-//       <p>gjrhfrhfurj</p>
-//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Home')}>App</h1>
-//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/SignIn')}>signin </h1>
-//       <h1 className='text-black dark:text-white' onClick={()=>router.push('/Login')}>login </h1>
-       
-//     </div>
-//   )
-// }
-
-
-    // <div style={{ height: "100vh", overflow: "hidden", position: "relative" }}>
-    //   <video
-    //     autoPlay
-    //     loop
-    //     muted
-    //     playsInline
-    //     style={{
-    //       width: "100%",
-    //       height: "100%",
-    //       objectFit: "cover",
-    //     }}
-    //   >
-    //     <source src="/video1.mp4" type="video/mp4" />
-    //     Your browser does not support the video tag.
-    //   </video>
-    // </div>
- 
-
   );
 };
 

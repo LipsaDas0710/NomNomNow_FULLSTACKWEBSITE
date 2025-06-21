@@ -10,6 +10,7 @@ import { SelectedBusinessContext } from '@/context/SelectedBusinessContext';
 import { RadiusContext } from '@/context/RadiusContext';
 import { BusinessProvider } from '@/context/SearchBusinessContext';
 import { Inter } from 'next/font/google';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -55,6 +56,7 @@ useEffect(() => {
           <RadiusContext.Provider value={{ radius, setRadius }}>
           <HeaderNavBar />
              {children}
+          <Footer/>
           </RadiusContext.Provider>
           </UserLocationContext.Provider>
           </SelectedBusinessContext.Provider>
