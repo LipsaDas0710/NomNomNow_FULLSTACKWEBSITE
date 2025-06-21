@@ -161,15 +161,7 @@ export default function AddReviewForm() {
     <div className="p-4 max-w-4xl mx-auto text-gray-900 dark:text-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Add Your Review</h1>
       
-      {/* Debug info */}
-      <div className="mb-4 p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm">
-        <strong>Debug Info:</strong>
-        <br />Restaurant ID: {id || 'Missing!'}
-        <br />Name: {name || 'N/A'}
-      </div>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        
+       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Star Rating */}
         <div>
           <label className="block mb-1 text-sm font-medium">Rating *</label>
