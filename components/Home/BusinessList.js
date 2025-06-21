@@ -43,46 +43,14 @@ function BusinessList({ businessList }) {
 
 
   return (
-    // <div className='flex overflow-x-auto gap-4 '
-    // style={{
-    //       WebkitScrollbar: 'none',
-    //       msOverflowStyle: 'none',
-    //       scrollbarWidth: 'none'
-    //     }}    
-    // >
-    //   {businessList.sort((a, b) => {
-    //               // Calculate distance for restaurant a
-    //               const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng);
-    //               // Calculate distance for restaurant b
-    //               const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
-    //               // Sort by distance (ascending - nearest first)
-    //               return distanceA - distanceB;
-    //         }).slice(0, 7).map((item, index) => {
-    //     const isSelected = selectedBusiness?.id === item.id;
-    //     const imageUrl = getCuisineImage(item.cuisine, index);
-
-    //     return (
-    //       <div
-    //         key={item.id || index}
-    //         onClick={() => setSelectedBusiness(item)}
-    //         className={`cursor-pointer transition-transform duration-200 ${
-    //           isSelected ? 'scale-105 shadow-lg border border-blue-500 rounded-lg' : ''
-    //         }`}
-    //       >
-    //         <BusinessItem business={item} image={imageUrl} />
-    //       </div>
-    //     );
-    //   })}
-    // </div>
-
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 -mt-20 md:-mb-3">
       {/* Left scroll button */}
       <button onClick={scrollLeft} className="text-2xl px-2 py-1 bg-gray-400 rounded hover:bg-gray-500">&lt;</button>
 
       {/* Scrollable container */}
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto gap-4 no-scrollbar"
+        className="flex overflow-x-auto gap-4 no-scrollbar "
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
