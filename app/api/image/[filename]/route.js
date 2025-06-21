@@ -2,8 +2,8 @@
 import { connectToGridFS } from '../../../lib/gridfs';
 import { NextResponse } from 'next/server';
 
-export async function GET(req, { params }) {
-  const { filename } = params;
+export async function GET(req, context) {
+  const { filename } = context.params;
 
   try {
     const bucket = await connectToGridFS();
