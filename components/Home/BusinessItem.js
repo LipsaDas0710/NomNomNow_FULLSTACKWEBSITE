@@ -15,41 +15,6 @@ const BusinessItem = ({business, image, showDir=false}) => {
   const router= useRouter();
   const { data: session } = useSession();
 
-  
-
-//   const handleHeartClick = async () => {
-//   const newActiveState = !active;
-//   setActive(newActiveState);
-
-//   if (newActiveState) {
-//     try {
-//       const favoriteData = {
-//         restaurantId: business.id,
-//         restaurantName: business.name,
-//       };
-
-//       const response = await fetch('/api/favourite', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(favoriteData),
-//       });
-
-//       const result = await response.json();
-
-//       if (!response.ok) {
-//         console.error("Failed to save favorite:", result.error);
-//         alert(`Failed to save favorite: ${result.error}`);
-//       }
-//     } catch (err) {
-//       console.error("Error saving favorite:", err);
-//       alert("Error saving favorite.");
-//     }
-//   } else {
-//     // Optional: You could also implement a DELETE to remove favorite here
-//   }
-// };
 
 useEffect(() => {
   const checkIfFavorited = async () => {

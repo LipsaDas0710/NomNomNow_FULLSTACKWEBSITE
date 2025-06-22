@@ -14,10 +14,3 @@ const favourtieSchema = new mongoose.Schema({
 const Favourite = mongoose.models.Favourite || mongoose.model("Favourite", favourtieSchema);
 export default Favourite;
 
-//  name: business.name,
-//     address: business.address,
-//     category:business.category,
-//     id:business.id,
-//     dis:distance,
-//     lat:business.lat,
-//     lng:business.lng,

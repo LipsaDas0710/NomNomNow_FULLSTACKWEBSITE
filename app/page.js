@@ -20,6 +20,7 @@ export default function Home() {
     <main className="bg-black text-white">
       <HeroSection />
       <InfoSection />
+      
     </main>
   )
 }

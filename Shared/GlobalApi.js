@@ -24,7 +24,5 @@ export default{
 }
 
 
-//http://localhost:3000/api/google-place?category=italian&lat=37.7749&lng=-122.4194&radius=5
-//http://localhost:3000/api/google-place?category=[restaurant]&lat=37.7749&lng=-122.4194&radius=5
 
 
