@@ -22,7 +22,7 @@ const metadata = {
 
 export default function RootLayout({ children }) {
 
-  const [userLocation,setUserLocation]=useState([]);
+  const [userLocation,setUserLocation]=useState(null);
   const [selectedBusiness,setSelectedBusiness]=useState([]);
   const [radius, setRadius] = useState(5); // default radius]);
   const radiusRef = useRef(radius);
@@ -37,7 +37,12 @@ export default function RootLayout({ children }) {
         lat:pos.coords.latitude,
         lng:pos.coords.longitude
       })
-    })
+    },
+    (err) => {
+      console.error("Location error", err);
+      setUserLocation({ lat: 22.5726, lng: 88.3639 }); // Kolkata default
+    },
+    { timeout: 10000 })
   }
 
   // Keep the ref in sync with the state
@@ -47,7 +52,7 @@ useEffect(() => {
  
   return (
     <html lang="en">
-      <body className={inter.className} >
+      <body className={inter.className} suppressHydrationWarning={true}>
         <Provider>
      
           <BusinessProvider>
