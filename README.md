@@ -32,9 +32,9 @@
 
 > Add your screenshots to a `/screenshots` folder and include them like this:
 
-![Homepage](./screenshots/Home.png)
-![Review Page](./screenshots/TableBooking.png)
-![Map View](./screenshots/Map.png)
+![Homepage](./screenshot/Home.png)
+![Review Page](./screenshot/TableBooking.png)
+![Map View](./screenshot/Map.png)
 
 ---
 
