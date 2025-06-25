@@ -40,7 +40,7 @@
 
 ## 🔗 Live Demo
 
-👉 [View NomNomNow Live](https://your-vercel-url.vercel.app)
+👉 [View NomNomNow Live](https://nom-nom-now-fullstackwebsite.vercel.app/)
 
 ---
 
