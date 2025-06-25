@@ -30,11 +30,14 @@
 
 ## 🖼️ Screenshots
 
-> Add your screenshots to a `/screenshots` folder and include them like this:
+### 🏠 Home Page  
+![Home](screenshort/Home.png)
 
-![Homepage](./screenshot/Home.png)
-![Review Page](./screenshot/TableBooking.png)
-![Map View](./screenshot/Map.png)
+### 🗺️ Map View  
+![Map](screenshort/Map.png)
+
+### 📅 Table Booking  
+![TableBooking](screenshort/TableBooking.png)
 
 ---
 
