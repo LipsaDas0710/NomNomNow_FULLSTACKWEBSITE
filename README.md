@@ -1,3 +1,63 @@
+# 🍽️ NomNomNow
+
+**NomNomNow** is a modern, full-stack restaurant discovery and review app built with **Next.js**, **MongoDB**, and **OpenStreetMap/Foursquare APIs**. It allows users to search for nearby restaurants, leave reviews with images and ratings, and even book tables — all in a clean, responsive interface.
+
+---
+
+## 🚀 Features
+
+✅ **Restaurant Discovery**  
+✅ **Voice Search** for faster browsing  
+✅ **Live Distance Calculation** between user and restaurant  
+✅ **Add Reviews** with text, image & star rating  
+✅ **View Directions** via Google Maps  
+✅ **Save Favorites** to your profile  
+✅ **Table Booking** with form submission  
+✅ **Google OAuth** Login  
+✅ **Responsive Design**, works on all devices  
+
+---
+
+## 🧠 Tech Stack
+
+- **Frontend:** Next.js 14 (App Router), React, Tailwind CSS  
+- **Backend:** Node.js, Express, MongoDB, GridFS  
+- **Authentication:** NextAuth.js (Google OAuth + Credentials)  
+- **Map & Data:** OpenStreetMap, Foursquare API, Google Maps  
+- **Storage:** MongoDB with GridFS for image uploads
+
+---
+
+## 🖼️ Screenshots
+
+> Add your screenshots to a `/screenshots` folder and include them like this:
+
+![Homepage](./screenshots/home.png)
+![Review Page](./screenshots/review.png)
+![Map View](./screenshots/map.png)
+
+---
+
+## 🔗 Live Demo
+
+👉 [View NomNomNow Live](https://your-vercel-url.vercel.app)
+
+---
+
+## 📦 Getting Started (Local Development)
+
+```bash
+git clone https://github.com/your-username/nomnomnow.git
+cd nomnomnow
+npm install
+npm run dev
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
