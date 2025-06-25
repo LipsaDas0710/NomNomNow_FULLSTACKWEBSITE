@@ -2,6 +2,9 @@
 
 **NomNomNow** is a modern, full-stack restaurant discovery and review app built with **Next.js**, **MongoDB**, and **OpenStreetMap/Foursquare APIs**. It allows users to search for nearby restaurants, leave reviews with images and ratings, and even book tables — all in a clean, responsive interface.
 
+### 🏠 Home Page  
+![Home](screenshort/Home.png)
+
 ---
 
 ## 🚀 Features
@@ -28,9 +31,6 @@
 ---
 
 ## 🖼️ Screenshots
-
-### 🏠 Home Page  
-![Home](screenshort/Home.png)
 
 ### 🗺️ Map View  
 ![Map](screenshort/Map.png)
