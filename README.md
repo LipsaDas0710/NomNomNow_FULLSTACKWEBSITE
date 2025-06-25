@@ -14,7 +14,6 @@
 ✅ **Save Favorites** to your profile  
 ✅ **Table Booking** with form submission  
 ✅ **Google OAuth** Login  
-✅ **Responsive Design**, works on all devices  
 
 ---
 
