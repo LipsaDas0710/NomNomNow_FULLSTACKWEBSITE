@@ -1,211 +1,57 @@
-import React from 'react'
-import { useContext,useState,useEffect } from "react"
-import { UserLocationContext } from '../../context/UserlocationContext'
-import Heart from "react-heart"
-import { AlignJustify } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react'
+import { NextResponse } from "next/server";
 
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const category = (searchParams.get("category") || "restaurant").toLowerCase();
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+  const radius = searchParams.get("radius") || 1000;
 
-const BusinessItem = ({business, image, showDir=false}) => {
-  const {userLocation, setUserLocation} = useContext(UserLocationContext);
-  const [distance,setDistance]=useState();
-  const [active, setActive] = useState(false);
-  const [isClick,setClick]=useState(false);
-  const router= useRouter();
-  const { data: session } = useSession();
-
-
-useEffect(() => {
-  const checkIfFavorited = async () => {
-    if (!session) return;
-
-    try {
-      const res = await fetch('/api/favourite');
-      const data = await res.json();
-
-      if (res.ok && Array.isArray(data.favourite)) {
-        const isAlreadyFavourite = data.favourite.some(
-          (fav) => fav.restaurantId === business.id
-        );
-        setActive(isAlreadyFavourite);
-      }
-    } catch (error) {
-      console.error("Error checking favourite status:", error);
-    }
-  };
-
-  checkIfFavorited();
-}, [session, business.id]);
-
-
-
-    useEffect(()=>{
-      calculateDistance(
-        business.lat,
-        business.lng,
-        userLocation.lat,
-        userLocation.lng
-      )
-    },[])
-
-
-      const calculateDistance = (lat1, lng1, lat2, lng2) => {
-     
-      const earthRadius = 6371; // in kilometers
-  
-      const degToRad = (deg) => {
-        return deg * (Math.PI / 180);
-      };
-  
-      const dLat = degToRad(lat2 - lat1);
-      const dlng = degToRad(lng2 - lng1);
-  
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.sin(dlng / 2) * Math.sin(dlng / 2);
-  
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  
-      const distance = earthRadius * c;
-      const formatted = `${distance.toFixed(2)}`;
-     
-      setDistance(formatted)
-      return formatted; // Return the distance with 2 decimal places
-    };
-
-      const onDirectionClick=()=>{
-      window.open('https://www.google.com/maps/dir/?api=1&origin='+
-      userLocation.lat+','+userLocation.lng+'&destination='
-      +business.lat
-      +','+business.lng+'&travelmode=driving');
-
+  // ✅ Validate required fields
+  if (!lat || !lng) {
+    return NextResponse.json({ error: "Latitude and longitude are required" }, { status: 400 });
   }
 
-  //handels the heart button for favourite
-  const handleHeartClick = async () => {
-  const newActiveState = !active;
-  setActive(newActiveState);
+  // ✅ Build Overpass API query (using OpenStreetMap data)
+  const query = `
+    [out:json][timeout:25];
+    node
+      ["amenity"="restaurant"]
+      ["cuisine"~"${category}",i]
+      (around:${radius},${lat},${lng});
+    out body; 
+  `.trim();
 
-  const favoriteData = {
-    restaurantId: business.id,
-    restaurantName: business.name,
-    address: business.address,
-    category:business.category,
-    dis:distance,
-    lat:business.lat,
-    lng:business.lng,
-  };
+  const overpassUrl = "https://overpass-api.de/api/interpreter";
 
   try {
-    if (newActiveState) {
-      // === Add to favourites ===
-      const response = await fetch('/api/favourite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(favoriteData),
-      });
+    // ✅ Fetch from Overpass
+    const res = await fetch(overpassUrl, {
+      method: "POST",
+      body: query,
+      headers: { "Content-Type": "text/plain" },
+    });
 
-      const result = await response.json();
-      if (!response.ok) {
-        console.error("Failed to save favorite:", result.error);
-        alert(`Failed to save favorite: ${result.error}`);
-      }
-    } else {
-      // === Remove from favourites ===
-      const response = await fetch('/api/favourite', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurantId: business.id }),
-      });
-
-      const result = await response.json();
-      if (!response.ok) {
-        console.error("Failed to delete favorite:", result.error);
-        alert(`Failed to delete favorite: ${result.error}`);
-      }
+    if (!res.ok) {
+      throw new Error(`Overpass API returned ${res.status}`);
     }
-  } catch (err) {
-    console.error("Error updating favorite:", err);
-    alert("Error updating favorite.");
+
+    const data = await res.json();
+
+    // ✅ Transform results into a simpler structure
+    const results = (data.elements || []).map((el) => ({
+      id: el.id,
+      name: el.tags?.name || "Unnamed Restaurant",
+      lat: el.lat,
+      lng: el.lon,
+      address: el.tags?.["addr:street"] || "Unknown address",
+      cuisine: el.tags?.cuisine || category,
+      image: `/restaurant/default.jpg`, // use your default restaurant image
+    }));
+
+    return NextResponse.json(results);
+  } catch (error) {
+    console.error("Overpass API Error:", error);
+    return NextResponse.json({ error: "Failed to fetch Overpass data" }, { status: 500 });
   }
-};
-
-//handels the more button 
-  const handleClick = () => {
-  const query = new URLSearchParams({
-    name: business.name,
-    address: business.address,
-    category:business.category,
-    id:business.id,
-    dis:distance,
-    lat:business.lat,
-    lng:business.lng,
-
-  }).toString();
-
-  router.push(`/${session.user.urlname}/AboutRestaurant/BookTable?${query}`);
-};
-
-        
-// fallback image using random()
-       const randomIndex = Math.floor(parseInt(business.id?.slice(-2), 36) % 7) + 1;
-       const fallbackImage = `/restaurant/${randomIndex}.png`;
-
-
-  return (
-    <div className='w-[180px] flex-shrink-0 p-2 
-      rounded-lg shadow-md mb-1
-      bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>   
-        <img src={business.image || fallbackImage}
-        alt='restaurant' className='h-[100px] w-full object-cover rounded-md' 
-        onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = fallbackImage;
-          }}/>
-        
-        <div className='flex justify-between'>
-          <h2 className='text-[13px] font-bold mt-3 line-clamp-1 text-black'>{business.name}</h2>
-          <div style={{ width: "17px" }} className='mr-3'>
-        <Heart
-                        isActive={active}
-                        onClick={handleHeartClick}
-                        animationTrigger="both"
-                        inactiveColor="rgba(173, 48, 21)"
-                        activeColor="#ad3015"
-                        style={{ marginTop: '15px' }}
-                        animationDuration={0.1}
-                      />
-		</div>
-        </div>        
-          <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>Category:{business.category}</h2>
-          <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>Address:{business.address }</h2>
-          <h2 className='text-[10px] text-gray-400 
-                line-clamp-2'>{business.id}</h2>
-          <div className='flex justify-between'>
-            <h2 className='text-[#0075ff] text-2px font-light 
-               flex justify-between items-center'>Dist:{distance}</h2>
-               
-                {showDir?null:<h2 className='border-[1px] p-1 rounded-sm mr-1.5
-             border-gray-300
-               hover:text-white
-               hover:bg-gray-300' onClick={handleClick}><AlignJustify color="gray" size={15} /></h2>}
-            
-         
-          {showDir? <div className=' p-1 mt-1'>
-            <h2 className='border-[1px] p-1 rounded-full text-2px text-[#0075ff]
-             border-blue-500
-               hover:text-white
-               hover:bg-blue-500' onClick={()=>onDirectionClick()} >Get Direction</h2>
-          </div>: null}
-
-       
-          </div>
-                 
-    </div>
-  )
 }
-
-export default BusinessItem
