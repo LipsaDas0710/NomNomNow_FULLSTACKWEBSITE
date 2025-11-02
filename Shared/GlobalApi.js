@@ -1,28 +1,13 @@
-import axios from 'axios';
-//const { default: axios } = require("axios");
-// import axios from '../app/lib/axiosConfig';
+// app/_utils/GlobalApi.js  (or wherever you keep it)
+import axios from "axios";
 
-
-const getPlace=(category,radius,lat,lng)=>axios.get('http://localhost:3000/api/openStreet-place?'+
-'category='+category+'&lat='+lat+'&lng='+lng+'&radius='+radius)
-// 'category='+category+'&radius='+radius+'&lat='+lat+'&lng='+lng)
-
-const getFoursquarePlaces = (category, radius, lat, lng) =>
-  axios.get('/api/fourSquare', {
-    params: {
-      category,
-      radius,
-      lat,
-      lng,
-    },
+// ✅ Fetch places from Overpass (OpenStreetMap)
+const getPlace = (category, radius, lat, lng) =>
+  axios.get("/api/oversea", {
+    params: { category, radius, lat, lng },
   });
 
-export default{
-    getPlace,
-    getFoursquarePlaces
-
-}
-
-
-
-
+// You can keep other API calls here too (like for reviews, users, etc.)
+export default {
+  getPlace,
+};
